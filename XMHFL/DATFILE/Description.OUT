@@ -1,0 +1,17 @@
+XMolecule_Full_Limited_Express IN THIS NAME IS THE ENCRYPTED APPROXIMATION IN WHICH TO SOME LK the system of equations is solved, then it is seen that the higher harmonics are known
+This program in the Hartree-Fock approximation calculates the radial parts of the wave functions of the molecule
+basic and excited states of the discrete spectrum by solving the system of Hartree-Fock equations. The program solves the system of Hartree-Fock equations for the molecular
+Orbitals in a single-center view. The basic approximation is the Born-Oppenheimer approximation (fixed position of the nuclei).
+
+!! Explanation of the name
+MoleculeXFFLE
+MoleculeXF_Full_Limited_Express
+MoleculeXF-FOR THE APPROXIMATION OF THE FIXED POSITION OF NUCLEI BY THE SOLUTION OF THE SYSTEM OF HARTRY-FUCK EQUATIONS TO THE WAVE ELECTRON FUNCTION
+MoleculeXF_Full- THIS APPROXIMATION REALIZES THE METHOD OF ACCOUNTING HIGHER HARMONICS.
+MoleculeXF_Full_Limited-IN THIS APPROXIMATION, THE SOLUTION IS FOR A LIMITED SET OF HARMONIC. Under this, the higher harmonics are obtained by decomposing the Wave functions of the Ligand electrons.
+                        There is a production of the obtained solution and functions of the ligands.
+MoleculeXF_Full_Limited_Express-In this case, to accelerate the calculation of the direct and exchange part of the molecular potential
+                                Preliminary calculation of the potential between the partial harmonics of molecular orbitals
+                                The resulting potentials are written to files. In the future, only potentials with changed molecular orbitals are recalculated.
+VER 2,3 - DATA VERSION BEGINS THE OPPORTUNITY OF SELECTING THE MASSIVE IN THE OPERATIVE MEMORY FOR CAPACITY BUILDING
+          AND IF IT IS IMPOSSIBLE THEN FILES ARE USED.
