@@ -1,8 +1,7 @@
-      ! THE MODULE OF CALCULATION OF MOLECULAR ANGULAR VALUES VER 1.0 11.2005
-	! бяе опюбю гюыхыемш. йнлоюмхъ LabComputerSistemTecnologyKasprzhitsky
-	! VER 1.0 NEW  11,2005 цнд
+      ! THE MODULE OF CALCULATION OF MOLECULAR ANGULAR VALUES VER 1.0 11.2019
+	  ! VER 1.0 NEW  11,2019 цнд
 
-	! лндскэ пюяверю лнкейскъпмшу сцкнбшу гмювемхи бепяхъ 1.0    
+	! MODULE FOR CALCULATION OF MOLECULAR ANGULAR VALUES VERSION 1.0
 	
 
 module mcmav
@@ -14,21 +13,21 @@ module mcmav
 
 
 
-    ! ондопнцпюллю пюяверю сцкнбни ярпсйрспш ноепюрнпю бгюхлндеиярбхъ 
-	! ъдеп лнкейскш х щкейрпнмнб (щкейрпнм б йпхярюккхвеяйнл онке)
-	! нохяюмхе оюпюлерпнб ондопнцпюллш
-   	! N-вхякн ъдеп
-	! L1-нпахрюкэмши лнлемр оепбнцн щкейрпнмю
-	! ML1-опнейжхъ нпахрюкэмнцн лнлемрю оепбнцн щкейрпнмю
-	! L2-нпахрюкэмши лнлемр брнпнцн щкейрпнмю
-	! ML2-опнейжхъ нпахрюкэмнцн лнлемрю брнпнцн щкейрпнмю    
-	! AC(N,2)-люяяхб сцкнбшу йннпдхмюр ъдеп (б пюдхюмюу) 
-	! AC(N,1)-сцнк рерю (0<X<=pi),
-	! AC(N,2)-сцнк тх (0<Y<=2*pi) 
-	! RcoffCF(N,Numbre,2)-люяяхб сцкнбшу йнщттхжхемрнб йпхярюккхвеяйнцн онкъ 
-	! RcoffCF(N,Numbre,1)-пеюкэмюъ вюярэ сцкнбнцн йнщттхжхемрю (онкебнцн) 
-	! RcoffCF(N,Numbre,2)-лмхлюъ вюярэ сцкнбнцн йнщттхжхемрю   (онкебнцн) 
-	! онъямемхе Numbre-вхякн цюплнмхй
+    ! SUBPROGRAM FOR CALCULATING THE ANGULAR STRUCTURE OF THE INTERACTION OPERATOR
+    ! NUCLEI OF A MOLECULE AND ELECTRONS (ELECTRON IN A CRYSTALLINE FIELD)
+    ! DESCRIPTION OF SUBPROGRAM PARAMETERS
+    ! N-NUMBER OF NUCLEI
+    ! L1-ORBITAL MOMENT OF THE FIRST ELECTRON
+    ! ML1-PROJECTION OF THE ORBITAL MOMENTUM OF THE FIRST ELECTRON
+    ! L2-ORBITAL MOMENT OF SECOND ELECTRON
+    ! ML2-PROJECTION OF THE ORBITAL MOMENTUM OF THE SECOND ELECTRON
+    ! AC (N, 2) - ARRAY OF CORNER COORDINATES OF NUCLEI (IN RADIANS)
+    ! AC (N, 1) -ANGLE THETA (0 <X <= pi),
+    ! AC (N, 2) -PI ANGLE (0 <Y <= 2 * pi)
+    ! RcoffCF (N, Numbre, 2) - ARRAY OF ANGULAR COEFFICIENTS OF THE CRYSTALLINE FIELD
+    ! RcoffCF (N, Numbre, 1) -REAL PART OF ANGULAR FACTOR (FIELD) 
+    ! RcoffCF (N, Numbre, 2) -IME PART OF ANGULAR FACTOR (FIELD)
+    ! EXPLANATION Numbre-NUMBER OF HARMONICS
 	subroutine CMAV_ANGULAR_STRUCTURE_CRYSTAL_FIELD(N,L1,ML1,L2,ML2,AC,RcoffCF)
 	  use mc3js,only:C3JS_VAR,C3JS_Ckq,C3JS_CkqGG,C3JS_CkqISH
       implicit none
@@ -127,15 +126,15 @@ module mcmav
 
 
 
-	! ондопнцпюллю пюяверю вхякнбнцн гмювемхъ ятепхвеяйни цюплнмхйх дкъ K х бяеу опнейжхи
-    ! нохяюмхе оюпюлерпнб ондопнцпюллш
-	! K-мнлеп ятепхвеяйни цюплнмйх
-    ! RTeta-СЦНК Б ЯТЕПХВЕЯЙНИ ЯХЯРЕЛШ ЙННПДХМЮР РЕРРЮ (0<RTeta<=pi)
-	! RFu-СЦНК Б ЯТЕПХВЕЯЙНИ ЯХЯРЕЛЕ ЙННПДХМЮР ТХ (0<RFu<=2*pi)
-	! Ykq(2*K+1,2)-люяяхб гмювемхи ятепхвеяйни цюплнмхйх бяеу опнейжхи дкъ дюммнцн K
-	! Ykq(2*K+1,1)-пеюкэмюъ вюярэ ятепхвеяйни цюплнмхйх
-	! Ykq(2*K+1,2)-лмхлюъ вюярэ ятепхвеяйни цюплнмхйх 
-	! YSkq(2*K+1,2)-люяяхб гмювемхи ятепхвеяйни цюплнмхйх йнлокейямн-янопъфеммни бяеу опнейжхи дкъ дюммнцн K 
+     ! SUBPROGRAM FOR CALCULATING THE NUMERICAL VALUE OF THE SPHERICAL HARMONY FOR K AND ALL PROJECTIONS
+     ! DESCRIPTION OF SUBPROGRAM PARAMETERS
+     ! SPHERICAL HARMONY K-NUMBER
+     ! RTeta-angle in the theta spherical coordinate system (0 <RTeta <= pi)
+     ! RFu-angle in spherical coordinates phi (0 <RFu <= 2 * pi)
+     ! Ykq (2 * K + 1,2) -MASSIF OF VALUES OF THE SPHERICAL HARMONIC OF ALL PROJECTIONS FOR A GIVEN K
+     ! Ykq (2 * K + 1,1) -REAL PART OF SPHERICAL HARMONICS
+     ! Ykq (2 * K + 1,2) - IMAGINARY PART OF SPHERICAL HARMONICS
+     ! YSkq (2 * K + 1,2) -MASSIF OF VALUES OF THE SPHERICAL HARMONIC OF COMPLEX-CONJUGATED ALL PROJECTIONS FOR A GIVEN K
 	subroutine CMAV_SPHERICAL_FUNCTION(K,RTeta,RFu,Ykq,YSkq)
 	  implicit none
       
@@ -187,16 +186,16 @@ module mcmav
     end subroutine CMAV_SPHERICAL_FUNCTION
 
 
-	! ондопнцпюллю пюяверю вхякнбнцн гмювемхъ ятепхвеяйни цюплнмхйх L,M
-    ! нохяюмхе оюпюлерпнб ондопнцпюллш
-	! L-нпахрюкэмши лнлемр ятепхвеяйни цюплнмйх
-    ! M-опнейжхъ нпахрюкэмнцн лнлемрю ятепхвеяйни цюплнмхйх     
-    ! RTeta-СЦНК Б ЯТЕПХВЕЯЙНИ ЯХЯРЕЛШ ЙННПДХМЮР РЕРРЮ (0<RTeta<=pi)
-	! RFu-СЦНК Б ЯТЕПХВЕЯЙНИ ЯХЯРЕЛЕ ЙННПДХМЮР ТХ (0<RFu<=2*pi)
-	! Ykq(2)-люяяхб гмювемхи ятепхвеяйни цюплнмхйх дкъ дюммнцн L х опнейжхх M 
-	! Ykq(1)-пеюкэмюъ вюярэ ятепхвеяйни цюплнмхйх
-	! Ykq(2)-лмхлюъ вюярэ ятепхвеяйни цюплнмхйх 
-	! YSkq(2)-люяяхб гмювемхи ятепхвеяйни цюплнмхйх йнлокейямн-янопъфеммни дкъ дюммнцн K х опнейжхх M 
+    ! SUB-PROGRAM FOR CALCULATING THE NUMERICAL VALUE OF THE SPHERICAL HARMONICS L, M
+    ! DESCRIPTION OF SUBPROGRAM PARAMETERS
+    ! L-ORBITAL MOMENT OF SPHERICAL HARMONY
+    ! M-PROJECTION OF THE ORBITAL MOMENT OF SPHERICAL HARMONIC
+    ! RTeta-angle in the theta spherical coordinate system (0 <RTeta <= pi)
+    ! RFu-angle in spherical coordinates phi (0 <RFu <= 2 * pi)
+    ! Ykq (2) -ARRAY OF SPHERICAL HARMONIC VALUES FOR A GIVEN L AND PROJECTION M
+    ! Ykq (1) -REAL PART OF SPHERICAL HARMONICS
+    ! Ykq (2) -IME PART OF THE SPHERICAL HARMONIC
+    ! YSkq (2) -ARRAY OF VALUES OF THE SPHERICAL HARMONICS OF THE INTEGRATED-CONNECTED FOR A GIVEN K AND PROJECTION M
     subroutine CMAV_VALUE_SPHERICAL_FUNCTION(L,M,RTeta,RFu,Ykq,YSkq)
 	  implicit none
       
@@ -242,11 +241,11 @@ module mcmav
 
 
  
-   ! ондопнцпюллю онксвемхъ гмювемхъ рерю тсмйжхх (пеййспемрмшл яонянанл)
-   ! нохяюмхе оюпюлерпнб ондопнцпюллш
-   ! L-нпахрюкэмши лнлемр тсмйжхх
-   ! M-опнейжхъ нпахрюкэмнцн лнлемрю (опнцпюллю пюяялюрпхбюер яксвюи (M>=0)  
-   ! X-гмювемхе юпцслемрю (б хмрепбюке нр (0,PI))
+    ! SUB-PROGRAM FOR OBTAINING THE VALUE OF THETA FUNCTION (RECURRENT METHOD)
+    ! DESCRIPTION OF SUBPROGRAM PARAMETERS
+    ! L-ORBITAL MOMENT FUNCTION
+    ! M-PROJECTION OF THE ORBITAL MOMENTUM (THE PROGRAM CONSIDERS THE CASE (M> = 0)
+    ! X-VALUE OF ARGUMENT (INTERVAL FROM (0, PI))
    real(8) function CMAV_VALUE_TETA_FUNCTION_POINT(L,M,X)
      implicit none
       

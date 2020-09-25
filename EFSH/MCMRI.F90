@@ -1,8 +1,7 @@
-! THE MODULE OF CALCULATION OF MOLECULAR RADIAL INTEGRALS VER 1.0 11.2005
-! бяе опюбю гюыхыемш. йнлоюмхъ LabComputerSistemTecnologyKasprzhitsky
-! VER 1.0 NEW  11,2005 цнд
+! THE MODULE OF CALCULATION OF MOLECULAR RADIAL INTEGRALS VER 1.0 11.2019
+! VER 1.0 NEW  11,2019 цнд
 
-! лндскэ пюяверю лнкейскъпмшу пюдхюкэмшу хмрецпюкнб бепяхъ 1.0    
+! MODULE FOR CALCULATION OF MOLECULAR RADIAL INTEGRALS VERSION 1.0
 	
 
 module mcmri
@@ -12,20 +11,20 @@ module mcmri
  contains
 
 
- ! ондопнцпюллю  тнплхпсер люяяхбш дкъ нохяюмхъ пюгкхвмшу яернй
- ! Nsetka-рхо яерйх
- ! Nsetka=1-юрнлмюъ яерйю      RO=ALFA*R+BETTA*LN(R)
- ! Nsetka=2-лнкейскъпмюъ яерйю RO=ALFA*R+BETTA*LN(R)+ATANG((R-Ral)/GAMMA)
- ! Npoint-вхякн рнвей
- ! H-ьюц
- ! ALFA-оюпюлерпш гюлемш
- ! BETTA-оюпюлерпш гюлемш
- ! GAMMA-оюпюлерпш гюлемш
- ! Ral-ялеыемхе нрмнярхрекэмн мювюкю йннпдхмюр "яхярелш б йнрнпни опнхяундхр пюгкнфемхе" 
- ! R(Npoint)-люяяхб гмювемхи пюдхсяю
- ! RO1(Npoint)-люяяхб гмювемхи оепбни опнхгбндмни мнбни опелеммни он R (ярюпни оепелеммни)
- ! RO2(Npoint)-люяяхб гмювемхи брнпни опнхгбндмни мнбни опелеммни он R (ярюпни оепелеммни)
- ! RO3(Npoint)-люяяхб гмювемхи рперэеи опнхгбндмни мнбни опелеммни он R (ярюпни оепелеммни)
+! SUB-PROGRAM FORMS ARRAYS FOR DESCRIBING DIFFERENT GRIDS
+ ! Nsetka-NET TYPE
+ ! Nsetka = 1-ATOMIC GRID RO = ALFA * R + BETTA * LN (R)
+ ! Nsetka = 2-MOLECULAR GRID RO = ALFA * R + BETTA * LN (R) + ATANG ((R-Ral) / GAMMA)
+ ! Npoint-NUMBER OF POINTS
+ ! H-STEP
+ ! ALFA-REPLACEMENT PARAMETERS
+ ! BETTA-REPLACEMENT PARAMETERS
+ ! GAMMA REPLACEMENT PARAMETERS
+ ! Ral-OFFSET RELATIVE TO THE BEGINNING OF THE COORDINATES OF THE "SYSTEM IN WHICH THE DECOMPOSITION OCCURS"
+ ! R (Npoint) - ARRAY OF RADIUS VALUES
+ ! RO1 (Npoint) - ARRAY OF VALUES OF THE FIRST DERIVATIVE OF THE NEW VARIABLE IN R (OLD VARIABLE)
+ ! RO2 (Npoint) - ARRAY OF VALUES OF THE SECOND DERIVATIVE OF THE NEW VARIABLE IN R (OLD VARIABLE)
+ ! RO3 (Npoint) - ARRAY OF VALUES OF THE THIRD DERIVATIVE OF THE NEW VARIABLE IN R (OLD VARIABLE)
  subroutine CMRI_VAR(NtipSetky,N,H,ALFA,BET,GAMMA,Ral,R,RO1X,RO2X,RO3X)
         implicit none
         integer::I1,I,N,NtipSetky
@@ -35,7 +34,7 @@ module mcmri
 		real(8)::R2,R3,RR,RR2,RDELTA,RDELTA2,RDELTA3,XXDF
           
 		   
-        ! юрнлмюъ яерйю
+       ! ATOMIC GRID
         IF(NtipSetky.EQ.1) THEN
            RO1=-14.D0
 		   RO2=RO1+FLOAT(N)*H 
@@ -54,7 +53,7 @@ module mcmri
 
         ENDIF
         
-		! лнкейскъпмюъ яерйю
+		! MOLECULAR GRID
         IF(NtipSetky.EQ.2) THEN
           RO1=-15.D0
           RO2=RO1+FLOAT(N)*H  
@@ -175,14 +174,14 @@ module mcmri
 
 
 	
-    ! ондопнцпюллю онхяйю йнпмъ спюбмемхъ
-	! нохяюмхе оюпюлерпнб ондопнцпюллш
-	! ALFA,BET,GAMMA,Ral-оюпюлерпш гюлемш
-	! XH-мювюкн хмрепбюкю
-	! XK-йнмеж хмрепбюкю
-	! опх XK=0-йнмеж хмрепбюкю нопедекъер яюлю ондопнцпюллю
-	! опх XH=0-мювюкю хмрепбюкю нопедекъер яюлю ондопнцпюллю
-	! YR-онярнъммюъ
+! EQUATION ROOT SEARCH SUBPROGRAM
+! DESCRIPTION OF SUBPROGRAM PARAMETERS
+! ALFA, BET, GAMMA, Ral-REPLACEMENT PARAMETERS
+! XH-START OF INTERVAL
+! XK-END OF INTERVAL
+! FOR XK = 0, THE END OF THE INTERVAL IS DETERMINED BY THE SUBPROGRAM
+! AT XH = 0-START OF THE INTERVAL DETERMINED BY THE SUB-PROGRAM
+! YR-CONSTANT
       subroutine CMRI_SEARCH_ROOT(ALFA,BET,GAMMA,Ral,XHx,XKx,Xc,YR)
       implicit none
       real(8)::ALFA,BET,GAMMA,Ral,Xc,XHx,XKx,YR
@@ -270,15 +269,15 @@ module mcmri
     
 
 	
-	! ондопнцпюллю пюяверю щмепцхх бгюхлндеиярбхъ я ъдпнл мюундъыхляъ б мювюке йннпдхмюр
-	! нохяюмхе оюпюлерпнб ондопнцпюллш
-    ! RO0-гмювемхе кебни цпюмхжш хмрецпхпнбюмхъ
-	! H-ьюц
-	! Npoint-вхякн рнвей
-	! R(Npoint)-люяяхб гмювемхи юпцслемрю
-    ! Ffun1(Npoint)-оепбюъ бнкмнбюъ тсмйжхъ F-рхою
-    ! Ffun2(Npoint)-брнпюъ бнкмнбюъ тсмйжхъ F-рхою
-	! RO1(Npoint)-люяяхб оепеяверю тсмйжхи (ОЕПБЮЪ ОПНХГБНДМНЪ МНБНИ ОЕПЕЛЕММНИ)
+     ! SUB-PROGRAM FOR CALCULATING THE ENERGY OF INTERACTION WITH THE NUCLEUS AT THE BEGINNING OF THE COORDINATES
+     ! DESCRIPTION OF SUBPROGRAM PARAMETERS
+     ! RO0-LEFT INTEGRATION BOUNDARY VALUE
+     ! H-STEP
+     ! Npoint-NUMBER OF POINTS
+     ! R (Npoint) - ARGUMENT VALUE ARRAY
+     ! Ffun1 (Npoint) - F-TYPE FIRST WAVE FUNCTION
+     ! Ffun2 (Npoint) -SECOND F-TYPE WAVE FUNCTION
+     ! RO1 (Npoint) -FUNCTIONS ARRAY (first derivative of a new variable)
   real(8) function CMRI_CENT(RO0,H,Npoint,R,Ffun1,Ffun2,RO1)
     use mcbi,only:CBI_Integral_First_Type 
     implicit none
@@ -294,19 +293,19 @@ module mcmri
   end function  CMRI_CENT
 
 
-  ! ондопнцпюллю пюяверю щмепцхх бгюхлндеиярбхъ я ъдпнл мюундъыхляъ 
-  ! мю пюярнъмхх R нр мювюкю йннпдхмюр
-  ! нохяюмхе оюпюлерпнб ондопнцпюллш
-  ! Kgar-мнлеп цюплнмхйх
-  ! Ral-пюяярнъмхе нр мювюкю йнпдхмюр, гмювемхе пюдхсяю
-  ! Roral-пюяярнъме б мнбни оепелеммни, гмювемхе мнбни оепелеммни   
-  ! RO0-гмювемхе кебни цпюмхжш хмрецпхпнбюмхъ
-  ! H-ьюц
-  ! Npoint-вхякн рнвей
-  ! R(Npoint)-люяяхб гмювемхи юпцслемрю
-  ! Ffun1(Npoint)-оепбюъ бнкмнбюъ тсмйжхъ F-рхою
-  ! Ffun2(Npoint)-брнпюъ бнкмнбюъ тсмйжхъ F-рхою
-  ! RO1(Npoint)-люяяхб оепеяверю тсмйжхи (ОЕПБЮЪ ОПНХГБНДМЮЪ МНБНИ ОЕПЕЛЕММНИ)
+   ! SUB-PROGRAM FOR CALCULATING THE ENERGY OF INTERACTION WITH THE NUCLEUS
+   ! AT DISTANCE R FROM THE BEGINNING OF COORDINATES
+   ! DESCRIPTION OF SUBPROGRAM PARAMETERS
+   ! Kgar-HARMONIC NUMBER
+   ! Ral-DISTANCE FROM THE BEGINNING OF CORDINATES, VALUE OF RADIUS
+   ! Roral-DISTANCE IN NEW VARIABLE, VALUE OF NEW VARIABLE
+   ! RO0-LEFT INTEGRATION BOUNDARY VALUE
+   ! H-STEP
+   ! Npoint-NUMBER OF POINTS
+   ! R (Npoint) - ARGUMENT VALUE ARRAY
+   ! Ffun1 (Npoint) - F-TYPE FIRST WAVE FUNCTION
+   ! Ffun2 (Npoint) -SECOND F-TYPE WAVE FUNCTION
+   ! RO1 (Npoint) -FUNCTIONS ARRAY (first derivative of new variable)
   real(8) function CMRI_CENT_R(Kgar,Ral,Roral,RO0,H,Npoint,R,Ffun1,Ffun2,RO1)
    use mcbi,only:CBI_Integral_First_Type 
    implicit none
@@ -329,15 +328,15 @@ module mcmri
 
 
 
-  ! ондопнцпюллю пюяверю жемрпнаефмнцн вкемю
-  ! нохяюмхе оюпюлерпнб ондопнцпюллш
-  ! RO0-гмювемхе кебни цпюмхжш хмрецпхпнбюмхъ
-  ! H-ьюц
-  ! Npoint-вхякн рнвей
-  ! R(Npoint)-люяяхб гмювемхи юпцслемрю
-  ! Ffun1(Npoint)-оепбюъ бнкмнбюъ тсмйжхъ F-рхою
-  ! Ffun2(Npoint)-брнпюъ бнкмнбюъ тсмйжхъ F-рхою
-  ! RO1(Npoint)-люяяхб оепеяверю тсмйжхи (ОЕПБЮЪ ОПНХГБНДМНЪ МНБНИ ОЕПЕЛЕММНИ)
+   ! CENTRIFUGAL MEMBER CALCULATION SUB-PROGRAM
+   ! DESCRIPTION OF SUBPROGRAM PARAMETERS
+   ! RO0-LEFT INTEGRATION BOUNDARY VALUE
+   ! H-STEP
+   ! Npoint-NUMBER OF POINTS
+   ! R (Npoint) - ARGUMENT VALUE ARRAY
+   ! Ffun1 (Npoint) - F-TYPE FIRST WAVE FUNCTION
+   ! Ffun2 (Npoint) -SECOND F-TYPE WAVE FUNCTION
+   ! RO1 (Npoint) -FUNCTIONS ARRAY (first derivative of a new variable)
   real(8) function CMRI_KEN(RO0,H,Npoint,R,Ffun1,Ffun2,RO1)
    use mcbi,only:CBI_Integral_First_Type 
    implicit none
@@ -352,17 +351,17 @@ module mcmri
   end function CMRI_KEN 
 
 
- ! ондопнцпюллю пюяверю брнпни опнхгбндмни
- ! нохяюмхе оюпюлерпнб ондопнцпюллш
- ! RO0-гмювемхе кебни цпюмхжш хмрецпхпнбюмхъ
- ! H-ьюц
- ! Npoint-вхякн рнвей
- ! R(Npoint)-люяяхб гмювемхи юпцслемрю
- ! Ffun1(Npoint)-оепбюъ бнкмнбюъ тсмйжхъ F-рхою
- ! Ffun2(Npoint)-брнпюъ бнкмнбюъ тсмйжхъ F-рхою
- ! RO1(Npoint)-люяяхб оепеяверю тсмйжхи (ОЕПБЮЪ ОПНХГБНДМЮЪ МНБНИ ОЕПЕЛЕММНИ)
- ! RO2(Npoint)-люяяхб оепеяверю тсмйжхи (БРНПЮЪ ОПНХГБНДМЮЪ МНБНИ ОЕПЕЛЕММНИ)
- ! RO3(Npoint)-люяяхб оепеяверю тсмйжхи (РПЕРЭЪ ОПНХГБНДМЮЪ МНБНИ ОЕПЕЛЕММНИ)
+  ! SUBPROGRAM FOR CALCULATING THE SECOND DERIVATIVE
+  ! DESCRIPTION OF SUBPROGRAM PARAMETERS
+  ! RO0-LEFT INTEGRATION BOUNDARY VALUE
+  ! H-STEP
+  ! Npoint-NUMBER OF POINTS
+  ! R (Npoint) - ARGUMENT VALUE ARRAY
+  ! Ffun1 (Npoint) - F-TYPE FIRST WAVE FUNCTION
+  ! Ffun2 (Npoint) -SECOND F-TYPE WAVE FUNCTION
+  ! RO1 (Npoint) -FUNCTIONS ARRAY (first derivative of new variable)
+  ! RO2 (Npoint) -FUNCTIONS ARRAY (second derivative of the new variable)
+  ! RO3 (Npoint) -FUNCTION CONVERSION ARRAY (third derivative of the new variable)
  real(8) function CMRI_NABLA(Npoint,RO0,H,R,Ffun1,Ffun2,RO1,RO2,RO3)
   use mcbi,only:CBI_Integral_Second_Type
   implicit none
@@ -427,18 +426,18 @@ module mcmri
 
 
 
-  ! ондопнцпюллю пюяверю онремжхюкю
-  ! Ffun1(RO)*Ffun2(RO)*R(RO)**K*RRcoff/(RO1(RO))**2
-  ! нохяюмхе оюпюлерпнб ондопнцпюллш
-  ! K-яреоемэ лмнфхрекъ ондхмрецпюкэмни тсмйжхх
-  ! RO0-мхфмъъ цпюмхжю 
-  ! H-ьюц 
-  ! Npoint-вхякн рнвей
-  ! R(Npoint)-люяяхб гмювемхи юпцслемрю
-  ! Ffun1(Npoint)-оепбюъ тсмйжхъ F-рхою
-  ! Ffun2(Npoint)-брнпюъ тсмйжхъ F-рхою
-  ! RO1(Npoint)-люяяхб оепеяверю тсмйжхи (ОЕПБЮЪ ОПНХГБНДМНЪ МНБНИ ОЕПЕЛЕММНИ)
-  ! POT(Npoint)-люяяхб гмювемхи онремжхюкю
+   ! CAPACITY CALCULATION SUB-PROGRAM
+   ! Ffun1 (RO) * Ffun2 (RO) * R (RO) ** K * RRcoff / (RO1 (RO)) ** 2
+   ! DESCRIPTION OF SUBPROGRAM PARAMETERS
+   ! K-DEGREE OF THE MULTIPLIER OF THE UNITTEGRAL FUNCTION
+   ! RO0-BOTTOM BORDER
+   ! H-STEP
+   ! Npoint-NUMBER OF POINTS
+   ! R (Npoint) - ARGUMENT VALUE ARRAY
+   ! Ffun1 (Npoint) -FIRST FUNCTION OF F-TYPE
+   ! Ffun2 (Npoint) - F-TYPE SECOND FUNCTION
+   ! RO1 (Npoint) -FUNCTIONS ARRAY (first derivative of a new variable)
+   ! POT (Npoint) -ARRAY OF POTENTIAL VALUES
   real(8) function CMRI_POT_COULOMB_INTEGRAL(K,RO0,Npoint,H,R,Ffun1,Ffun2,RO1,POT)
    use mcbi,only:CBI_Integral_First_Type 
    implicit none
@@ -532,14 +531,14 @@ module mcmri
 
 
 
- ! ондопнцпюллю пюяверю хмрецпюкю нпрнцнмюкэмнярх
- ! нохяюмхе оюпюлерпнб ондопнцпюллш
- ! RO0-гмювемхе кебни цпюмхжш хмрецпхпнбюмхъ
- ! H-ьюц
- ! Npoint-вхякн рнвей
- ! Ffun1(Npoint)-оепбюъ бнкмнбюъ тсмйжхъ F-рхою
- ! Ffun2(Npoint)-брнпюъ бнкмнбюъ тсмйжхъ F-рхою
- ! RO1(Npoint)-люяяхб оепеяверю тсмйжхи (ОЕПБЮЪ ОПНХГБНДМЮЪ МНБНИ ОЕПЕЛЕММНИ)
+  ! SUBPROGRAM FOR CALCULATING THE ORTHOGONALITY INTEGRAL
+  ! DESCRIPTION OF SUBPROGRAM PARAMETERS
+  ! RO0-LEFT INTEGRATION BOUNDARY VALUE
+  ! H-STEP
+  ! Npoint-NUMBER OF POINTS
+  ! Ffun1 (Npoint) - F-TYPE FIRST WAVE FUNCTION
+  ! Ffun2 (Npoint) -SECOND F-TYPE WAVE FUNCTION
+  ! RO1 (Npoint) -FUNCTIONS ARRAY (first derivative of new variable)
  real(8) function CMRI_INT_ORT(Npoint,RO0,H,Ffun1,Ffun2,RO1)
   use mcbi,only:CBI_Integral_First_Type 
   implicit none

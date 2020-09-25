@@ -1,6 +1,5 @@
-! THE MODULE OF CALCULATION OF MOLECULAR MATRIX ELEMENTS VER 1.0 11.2005
-! бяе опюбю гюыхыемш. йнлоюмхъ LabComputerSistemTecnologyKasprzhitsky
-! VER 1.0 NEW  11,2005 цнд
+! THE MODULE OF CALCULATION OF MOLECULAR MATRIX ELEMENTS VER 1.0 11.2019
+! VER 1.0 NEW  11,2019 цнд
 
 ! лндскэ пюяверю лнкейскъпмшу люрпхвмшу щкелемрнб бепяхъ 1.0    
 	
@@ -15,32 +14,32 @@ contains
 
       
 	
-! ондопнцпюллю пюяверю люрпхвмнцн щкелемрю ндмнщкейрпнммни щмепцхх 
-! нохяюмхе оюпюлерпнб ондопнцпюллш
-! L1-нпахрюкэмши лнлемр оепбнцн щкейрпнмю
-! M1-опнейжхъ нпахрюкэмнцн лнлемрю оепбнцн щкейрпнмю
-! L2-нпахрюкэмши лнлемр брнпнцн щкейрпнмю
-! M2-опнейжхъ нпахрюкэмнцн лнлемрю брнпнцн щкейрпнмю 
-! N-вхякн ъдеп
-! Z0-гюпъд ъдпю б мювюке йннпдхмюр
-! Z(N)-люяяхб гюпъднб ъдеп
-! COORRR(N,2)-люяяхб пюдхюкэмшу йнндхмюр 
-!  COORRR(N,1)-пюдхюкэмюъ йннпдхмюрю ъдпю (R-пюдхся)
-!  COORRR(N,2)-пюдхюкэмюъ йннпдхмюрю ъдпю б мнбни оепелеммни (RO-пюдхся)
-! COOAAA(N,2)-люяяхб йннпдхмюр ъдеп
-!  COOAAA(N,1)-брнпюъ йннпдхмюрю -Reta-сцнк (0=<Reta<=PI)
-!  COOAAA(N,2)-рперэъ йннпдхмюрю -RFu-сцнк (0=<RFu<=2*PI)
-! RO0-мювюкэмне гмювемхе хмрепбюкю он RO
-! H-ьюц
-! Npoint-вхякн рнвей
-! R(Npoint)-люяяхб гмювемхи юпцслемрю
-! Ffun1(Npoint)-оепбюъ бнкмнбюъ тсмйжхъ F-рхою
-! Ffun2(Npoint)-брнпюъ бнкмнбюъ тсмйжхъ F-рхою
-! RO1(Npoint)-люяяхб оепеяверю тсмйжхи (ОЕПБЮЪ ОПНХГБНДМНЪ МНБНИ ОЕПЕЛЕММНИ)
-! RO2(Npoint)-люяяхб оепеяверю тсмйжхи (БРНПЮЪ ОПНХГБНДМНЪ МНБНИ ОЕПЕЛЕММНИ)
-! RO3(Npoint)-люяяхб оепеяверю тсмйжхи (РПЕРЭЪ ОПНХГБНДМНЪ МНБНИ ОЕПЕЛЕММНИ)
-! EnergyKIN-йхмерхвеяйюъ вюярэ щмепцхх
-! EnergyPOT-онремжхюкэмюъ вюярэ щмепцхх
+! SUB-PROGRAM FOR CALCULATING THE MATRIX ELEMENT OF SINGLE-ELECTRONIC ENERGY
+! DESCRIPTION OF SUBPROGRAM PARAMETERS
+! L1-ORBITAL MOMENT OF THE FIRST ELECTRON
+! M1-PROJECTION OF THE ORBITAL MOMENTUM OF THE FIRST ELECTRON
+! L2-ORBITAL MOMENT OF SECOND ELECTRON
+! M2-PROJECTION OF THE ORBITAL MOMENTUM OF THE SECOND ELECTRON
+! N-NUMBER OF NUCLEI
+! Z0-CORE CHARGE AT THE BEGINNING OF COORDINATES
+! Z (N) -array of nuclear charges
+! COORRR (N, 2) -ARRAY OF RADIAL COODINATES
+! COORRR (N, 1) -RADIAL COORDINATE OF THE NUCLEUS (R-RADIUS)
+! COORRR (N, 2) -RADIAL COORDINATE OF THE NUCLEUS IN A NEW VARIABLE (RO-RADIUS)
+! COOAAA (N, 2) -ARRAY OF NUCLEI COORDINATES
+! COOAAA (N, 1) -SECOND COORDINATE -Reta-ANGLE (0 = <Reta <= PI)
+! COOAAA (N, 2) -THIRD COORDINATE -RFu-ANGLE (0 = <RFu <= 2 * PI)
+! RO0 - INITIAL RO INTERVAL VALUE
+! H-STEP
+! Npoint-NUMBER OF POINTS
+! R (Npoint) - ARGUMENT VALUE ARRAY
+! Ffun1 (Npoint) - F-TYPE FIRST WAVE FUNCTION
+! Ffun2 (Npoint) -SECOND F-TYPE WAVE FUNCTION
+! RO1 (Npoint) -FUNCTIONS ARRAY (first derivative of a new variable)
+! RO2 (Npoint) -FUNCTIONS ARRAY (second derivative of the new variable)
+! RO3 (Npoint) -FUNCTIONS RECOVERY ARRAY (third derivative of the new variable)
+! EnergyKIN-KINETIC PART OF ENERGY
+! EnergyPOT-POTENTIAL PART OF ENERGY
 real(8) function CMME_ONE_ELECTRONIC_INTEGRAL(L1,M1,L2,M2,N,Z0,Z,COORRR,COOAAA,RO0,H,Npoint,R,Ffun1,Ffun2,RO1,RO2,RO3,EnergyKIN,EnergyPOT)
  use mcmri,only:CMRI_NABLA,CMRI_KEN,CMRI_CENT,CMRI_CENT_R
  use mcmav,only:CMAV_ANGULAR_STRUCTURE_CRYSTAL_FIELD
@@ -168,27 +167,27 @@ end function CMME_ONE_ELECTRONIC_INTEGRAL
 
 
 
-! ондопнцпюллю пюяверю люрпхвмнцн щкелемрю дбсущкейрпнммни щмепцхх (йскнмнбяйнцн хмрецпюкю) 
-! L1-нпахрюкэмши лнлемр оепбни тсмйжхх
-! ML1-опнейжхъ нпахрюкэмнцн лнлемрю оепбни тсмйжхх
-! MS1-опнейжхъ яохмю оепбни тсмйжхх
-! L2-нпахрюкэмши лнлемр брнпни тсмйжхх
-! ML2-опнейжхъ нпахрюкэмнцн лнлемрю брнпни тсмйжхх
-! MS2-опнейжхъ яохмю брнпни тсмйжхх
-! L3-нпахрюкэмши лнлемр рперэеи тсмйжхх
-! ML3-опнейжхъ нпахрюкэмнцн лнлемрю рперэеи тсмйжхх 
-! MS3-опнейжхъ яохмю рперэеи тсмйжхх
-! L4-нпахрюкэмши лнлемр вербепрни тсмйжхх
-! ML4-опнейжхъ нпахрюкэмнцн лнлемрю вербепрни тсмйжхх
-! MS4-опнейжхъ яохмю вербепрни тсмйжхх
-! H-ьюц
-! Npoint-вхякн рнвей
-! R(Npoint)-люяяхб гмювемхи юпцслемрю
-! Ffun1(Npoint)-люяяхб гмювемхи оепбни тсмйжхх
-! Ffun2(Npoint)-люяяхб гмювемхи брнпни тсмйжхх
-! Ffun3(Npoint)-люяяхб гмювемхи рперэеи тсмйжхх
-! Ffun4(Npoint)-люяяхб гмювемхи вербепрни тсмйжхх
-! RO1(Npoint)-люяяхб оепеяверю тсмйжхи (ОЕПБЮЪ ОПНХГБНДМНЪ МНБНИ ОЕПЕЛЕММНИ) 
+! SUB-PROGRAM FOR CALCULATING THE MATRIX ELEMENT OF TWO-ELECTRONIC ENERGY (KULONOVSKY INTEGRAL)
+! L1-ORBITAL MOMENT OF FIRST FUNCTION
+! ML1-PROJECTION OF THE ORBITAL MOMENTUM OF THE FIRST FUNCTION
+! MS1-PROJECTION OF THE SPIN OF THE FIRST FUNCTION
+! L2-ORBITAL MOMENT OF THE SECOND FUNCTION
+! ML2-PROJECTION OF THE ORBITAL MOMENT OF THE SECOND FUNCTION
+! MS2-PROJECTION OF THE SECOND FUNCTION SPIN
+! L3-ORBITAL MOMENT OF THIRD FUNCTION
+! ML3-PROJECTION OF THE ORBITAL MOMENT OF THE THIRD FUNCTION
+! MS3-PROJECTION OF THE THIRD FUNCTION SPIN
+! L4-ORBITAL MOMENT OF FOURTH FUNCTION
+! ML4-PROJECTION OF THE ORBITAL MOMENTUM OF THE FOURTH FUNCTION
+! MS4-PROJECTION OF THE FOURTH FUNCTION SPIN
+! H-STEP
+! Npoint-NUMBER OF POINTS
+! R (Npoint) - ARGUMENT VALUE ARRAY
+! Ffun1 (Npoint) - ARRAY OF VALUES OF THE FIRST FUNCTION
+! Ffun2 (Npoint) - ARRAY OF VALUES OF THE SECOND FUNCTION
+! Ffun3 (Npoint) - ARRAY OF VALUES OF THE THIRD FUNCTION
+! Ffun4 (Npoint) - ARRAY OF VALUES OF THE FOURTH FUNCTION
+! RO1 (Npoint) -FUNCTIONS ARRAY (first derivative of a new variable)
 real(8) function  CMME_TWO_ELECTRONIC_INTEGRAL(L1,ML1,MS1,L2,ML2,MS2,L3,ML3,MS3,L4,ML4,MS4,H,Npoint,R,Ffun1,Ffun2,Ffun3,Ffun4,RO1,FF,F)
  use mcmri,only:CMRI_COULOMB_INTEGRAL
  use mc3js,only:C3JS_Ckq

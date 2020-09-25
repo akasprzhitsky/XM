@@ -1,8 +1,7 @@
 ! THE MODULE OF CALCULATION OF BASE INTEGRALS VER 1.0 11.2005
-! бяе опюбю гюыхыемш. йнлоюмхъ LabComputerSistemTecnologyKasprzhitsky
-! VER 1.0 NEW  11,2005 цнд
+! VER 1.0 NEW  11,2019 цнд
 
-! лндскэ пюяверю аюгнбшу хмрецпюкнб бепяхъ 1.0    
+! MODULE FOR CALCULATION OF BASE INTEGRALS VERSION 1.0  
 	
 
 module mcbi
@@ -12,23 +11,23 @@ module mcbi
 
 
        
-  ! ондопнцпюллю пюяверю хмрецпюкю оепбнцн рхою нр тсмйжхх 
-  ! Ffun1(RO)*Ffun2(RO)*R(RO)**K*RRcoff/(RO1(RO))**2
-  ! нохяюмхе оюпюлерпнб ондопнцпюллш
-  ! K-яреоемэ лмнфхрекъ ондхмрецпюкэмни тсмйжхх
-  ! NTYPE-оюпюлереп хмрепбюкю хмрецпхпнбюмхъ
-  ! NTYPE=1-(RO0,INFINITY)
-  ! NTYPE=2-(XRO,INFINITY)
-  ! NTYPE=3-(RO0,XRO)
-  ! RO0-мхфмъъ цпюмхжю хмрепбюкю
-  ! XRO-цпюмхжю хмрепбюкю хмрецпхпнбюмхъ
-  ! H-ьюц
-  ! Npoint-вхякн рнвей
-  ! R(Npoint)-люяяхб гмювемхи юпцслемрю
-  ! Ffun1(Npoint)-оепбюъ тсмйжхъ F-рхою
-  ! Ffun2(Npoint)-брнпюъ тсмйжхъ F-рхою
-  ! RRcoff-пюдхюкэмши оюпюлерп
-  ! RO1(Npoint)-люяяхб оепеяверю тсмйжхи (ОЕПБЮЪ ОПНХГБНДМНЪ МНБНИ ОЕПЕЛЕММНИ)
+   ! SUB-PROGRAM FOR CALCULATING THE INTEGRAL OF THE FIRST TYPE FROM THE FUNCTION
+   ! Ffun1 (RO) * Ffun2 (RO) * R (RO) ** K * RRcoff / (RO1 (RO)) ** 2
+   ! DESCRIPTION OF SUBPROGRAM PARAMETERS
+   ! K-DEGREE OF THE MULTIPLIER OF THE UNITTEGRAL FUNCTION
+   ! NTYPE-PARAMETER OF INTEGRATION INTERVAL
+   ! NTYPE = 1- (RO0, INFINITY)
+   ! NTYPE = 2- (XRO, INFINITY)
+   ! NTYPE = 3- (RO0, XRO)
+   ! RO0-LOWER INTERVAL BOUNDARY
+   ! XRO-BORDER OF INTEGRATION INTERVAL
+   ! H-STEP
+   ! Npoint-NUMBER OF POINTS
+   ! R (Npoint) - ARGUMENT VALUE ARRAY
+   ! Ffun1 (Npoint) -FIRST FUNCTION OF F-TYPE
+   ! Ffun2 (Npoint) - F-TYPE SECOND FUNCTION
+   ! RRcoff-RADIAL PARAMETER
+   ! RO1 (Npoint) -FUNCTIONS ARRAY (first derivative of a new variable)
   real(8) function CBI_Integral_First_Type(NTYPE,RO0,XRO,K,Npoint,H,R,Ffun1,Ffun2,RRcoff,RO1)
    implicit none
    integer::K,Npoint,NTYPE
@@ -277,18 +276,18 @@ module mcbi
 
 
 
-	! ондопнцпюллю 	пюяверю хмрецпюкю брнпнцн рхою  
-	! Ffun1(R)d^2Ffun2(R)/(dR)
-	! нохяюмхе оюпюлерпнб ондопнцпюллш
-	! RO0-мхфмъъ цпюмхжю хмрепбюкю
-	! H-ьюц
-	! Npoint-вхякн рнвей
-	! R(Npoint)-люяяхб гмювемхи юпцслемрю
-      ! Ffun1(Npoint)-оепбюъ тсмйжхъ F-рхою
-      ! Ffun2(Npoint)-брнпюъ тсмйжхъ F-рхою
-	! RO1(Npoint)-люяяхб оепеяверю тсмйжхи (ОЕПБЮЪ ОПНХГБНДМЮЪ МНБНИ ОЕПЕЛЕММНИ)
-	! RO2(Npoint)-люяяхб оепеяверю тсмйжхи (БРНПЮЪ ОПНХГБНДМЮЪ МНБНИ ОЕПЕЛЕММНИ)
-      ! RO3(Npoint)-люяяхб оепеяверю тсмйжхи (РПЕРЭЪ ОПНХГБНДМЮЪ МНБНИ ОЕПЕЛЕММНИ)
+	! SUB-PROGRAM FOR CALCULATION OF THE SECOND TYPE INTEGRAL
+    ! Ffun1 (R) d ^ 2Ffun2 (R) / (dR)
+    ! DESCRIPTION OF SUBPROGRAM PARAMETERS
+    ! RO0-LOWER INTERVAL BOUNDARY
+    ! H-STEP
+    ! Npoint-NUMBER OF POINTS
+    ! R (Npoint) - ARGUMENT VALUE ARRAY
+    ! Ffun1 (Npoint) -FIRST FUNCTION OF F-TYPE
+    ! Ffun2 (Npoint) - F-TYPE SECOND FUNCTION
+    ! RO1 (Npoint) -FUNCTIONS ARRAY (first derivative of new variable)
+    ! RO2 (Npoint) -FUNCTIONS ARRAY (second derivative of the new variable)
+    ! RO3 (Npoint) -FUNCTION CONVERSION ARRAY (third derivative of the new variable)
 	real(8) function CBI_Integral_Second_Type(RO0,H,Npoint,R,Ffun1,Ffun2,RO1,RO2,RO3)
       implicit none
       integer::Npoint
@@ -362,14 +361,14 @@ module mcbi
   end function CBI_Integral_Second_Type
 
       
-	! ондопнцпюллю пюяверю брнпни опнхгбндмни тсмйжхх
-	! брнпюъ опнхгбндмюъ мю рпеу рнвйюу (ьюц онярнъммши)
-	! брнпюъ опнхгбндмюъ мю оърх рнвйюу (ьюц онярнъммши)
-	! нохяюмхе оюпюлерпнб ондопнцпюллш
-	! IAS-мнлеп рнвйх б йнрнпни бшвякъел опнхгбндмсч
-	! Npoint-вхякн рнвей
-	! H-ьюц
-	! Fun(Npoint)-люяяхб гмювемхи тсмйжхх 
+! SUBPROGRAM FOR CALCULATING THE SECOND DERIVATIVE FUNCTION
+! SECOND DERIVATIVE AT THREE POINTS (STEP CONSTANT)
+! SECOND DERIVATIVE AT FIVE POINTS (STEP CONSTANT)
+! DESCRIPTION OF SUBPROGRAM PARAMETERS
+! IAS-NUMBER OF THE POINT AT WHICH WE CALCULATE THE DERIVATIVE
+! Npoint-NUMBER OF POINTS
+! H-STEP
+! Fun (Npoint) - ARRAY OF FUNCTION VALUES
   real(8)  function PRO_FUN2(IAS,Npoint,H,Fun)
    implicit none
    integer::IAS,Npoint
@@ -489,14 +488,14 @@ module mcbi
 
 
 
-  ! ондопнцпюллю пюяверю хмрецпюкю 
-  ! хяонкэгсъ нанаыеммсч тнплскс яхлоянмю
-  ! вхякн рнвей днкфмн ашрэ мев╗рмшл
-  ! нохяюмхе оюпюлерпнб ондопнцпюллш
-  ! NH-мнлеп оепбни рнвйх хмрецпхпнбюмхъ
-  ! NK-мнлеп онякедмеи рнвйх хмрецпхпнбюмхъ
-  ! H-ьюц
-  ! A(NN)-люяяхб гмювеми тсмйжхх 
+   ! INTEGRAL CALCULATION SUBPROGRAM
+   ! USING THE GENERALIZED SIMPSON FORMULA
+   ! THE NUMBER OF DOTS MUST BE ODD
+   ! DESCRIPTION OF SUBPROGRAM PARAMETERS
+   ! NH-NUMBER OF THE FIRST POINT OF INTEGRATION
+   ! NK-LAST POINT OF INTEGRATION
+   ! H-STEP
+   ! A (NN) -ARRAY OF FUNCTION VALUES
   real(8)  function CBI_SIMPSON_INT(NH,NK,H,A)
    implicit none
    integer::NH,NK
@@ -534,15 +533,15 @@ module mcbi
 
 
 
-    ! ондопнцпюллю пюяверю йнщттхжхемрнб онкхмнлю 2-нцн онпъдйю 
-	! он лерндс йпюлепю
-	! нохяюмхе оюпюлерпнб ондопнцпюллш
-     	! Np1-оепбюъ рнвйю
-	! Np2-брнпюъ рнвйю
-	! Np3-рперэъ рнвйю
-	! R(NN)-люяяхб гмювемхи юпцслемрю
-	! FUN(NN)-люяяхб гмювемхи тсмйжхх
-	! A,B,C-йнщттхжхемрш онкхмнлю Ar^2+Br+C 
+   ! SUBPROGRAM FOR CALCULATING THE COEFFICIENTS OF THE POLYNOMA OF THE 2ND ORDER
+   ! BY CRAMERA METHOD
+   ! DESCRIPTION OF SUBPROGRAM PARAMETERS
+   ! Np1-FIRST POINT
+   ! Np2-SECOND POINT
+   ! Np3-THIRD POINT
+   ! R (NN) - ARGUMENT VALUE ARRAY
+   ! FUN (NN) -ARRAY OF FUNCTION VALUES
+   ! A, B, C-COEFFICIENTS OF POLYNOMA Ar ^ 2 + Br + C
 	subroutine CBI_COEFFICIENT_POLINOM(Np1,Np2,Np3,R,FUN,A,B,C)
       implicit none
       

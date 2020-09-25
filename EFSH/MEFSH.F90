@@ -1,8 +1,7 @@
-      ! MODULE EXPANSION OF FUNCTION ON SPHERICAL HARMONICS VER 3.0 11.2005
-	! бяе опюбю гюыхыемш. йнлоюмхъ LabComputerSistemTecnologyKasprzhitsky
-	! VER 3.0 NEW  11,2005 цнд
+    ! MODULE EXPANSION OF FUNCTION ON SPHERICAL HARMONICS VER 3.0 11.2019
+	! VER 3.0 NEW  11,2019 цнд
 
-	! лндскэ пюгкнфемхъ тсмйжхх б пъд он ятепхвеяйхл цюплнмхйюл бепяхъ 3.0    
+	! SPHERICAL HARMONIC EXPANSION MODULE OF A FUNCTION VERSION 3.0
 	
 
 module mefsh
@@ -11,25 +10,25 @@ module mefsh
 
 	contains
     
-	! ондопнцпюллю пюгкнфемхъ юрнлмни бнкмнбни тсмйжхх б пъд он ятепхвеяйхл цюплнмхйюл
-	! Nn-цкюбмне йбюмрнбне вхякн 
-	! L-нпахрюкэмши лнлемр пюгкнцюелни тсмйжхх
-	! ML-опнейжхъ нпахрюкэмнцн лнлемрю пюгкнцюелни тсмйжхх
-	! Npoint-вхякн рнвей люяяхбю гмювемхи юпцслемрю пюгкнцюелни тсмйжхх
-	! R(Npoint)-люяяхб гмювемхи юпцслемрю
-	! RFun(Npoint)-люяяхб гмювемхи тсмйжхх
-	! RFunA(Npoint)-люяяхб гмювемхи юоопнйяхлюжхх тсмйжхх RFun (дкъ опнбепйх юоопнйяхлюжхх)
-	! Lmin-нпахрюкэмши лнлемр оепбни цюплнмхйх
-	! Lmax-нпахрюкэмши лнлемр онякедмеи цюплнмхйх
-	! A-пюяярнъмхе нр мювюкю йннпдхмюр юрнлмни яхярелш дн жемрпю нрмнярхрекэмн йнрнпнцн нясыеярбкъеряъ пюгкнфемхе
-	! яоежхюкэмне сйюгюмхе мю рхо ялеыемхъ юрнлмни яхярелш йннпдхмюр 
-	! A>0-ЯЛЕЫЕМХЕ Б ОНКНФХРЕКЭМНЛ МЮОПЮБКЕМХХ НЯХ OZ
-	! A<0-ЯЛЕЫЕМХЕ Б НРПХЖЮРЕКЭМНЛ МЮОПЮБКЕМХХ НЯХ OZ
-	! гмюй пюяярнъмхъ сйюгшбюер мю рхо ялеыемхъ 
-	! NpointNew-вхякн рнвей люяяхбю гмювемхи юпцслемрю йнщттхжхемрю пюгкнфемхъ
-	! Rnew(NpointNew)-люяяхб гмювемхи юпцслемрю йнщттхжхемрнб пюгкнфемхъ
-	! RcoffSH(Lmax-Lmin+1,NpointNew)-люяяхб гмювемхи йнщттхжхемрнб пюгкнфемхъ дюммни тсмйжжхх б пъд он ятепхвеяйхл цюплнмхйюл
-	! NRabParametrs()-люяяхб пюанвху оюпюлерпнб                     
+! SUB-PROGRAM FOR DECOMPOSING THE ATOMIC WAVE FUNCTION INTO A SERIES IN SPHERICAL HARMONICS
+! Nn-PRIMARY QUANTUM NUMBER
+! L-ORBITAL MOMENT OF THE DEVELOPABLE FUNCTION
+! ML-PROJECTION OF THE ORBITAL MOMENTUM OF THE DECOMPOSABLE FUNCTION
+! Npoint-NUMBER OF DOTS OF THE ARGUMENT OF VALUES OF THE EXPANDABLE FUNCTION
+! R (Npoint) - ARGUMENT VALUE ARRAY
+! RFun (Npoint) - ARRAY OF FUNCTION VALUES
+! RFunA (Npoint) - ARRAY OF APPROXIMATION VALUES OF RFun FUNCTION (FOR CHECKING APPROXIMATION)
+! Lmin-ORBITAL MOMENT OF THE FIRST HARMONIC
+! Lmax-ORBITAL MOMENT OF THE LAST HARMONIC
+! A-DISTANCE FROM THE BEGINNING OF THE ATOMIC SYSTEM COORDINATES TO THE CENTER RELATIVE TO WHICH THE DECOMPOSITION IS CARRIED OUT
+! SPECIAL REFERENCE TO THE TYPE OF DISPLACEMENT OF THE ATOMIC SYSTEM OF COORDINATES
+! A> 0-offset in the positive direction of the OZ axis
+! A <0-offset in the negative direction of the OZ axis
+! THE DISTANCE SIGN INDICATES THE TYPE OF OFFSET
+! NpointNew - NUMBER OF DOTS OF THE ARGUMENT OF VALUES OF THE ARGUMENT OF THE EXPANSION COEFFICIENT
+! Rnew (NpointNew) - ARRAY OF VALUES OF THE ARGUMENT OF DECOMPOSITION COEFFICIENTS
+! RcoffSH (Lmax-Lmin + 1, NpointNew) - ARRAY OF VALUES OF THE EXPANSION COEFFICIENTS OF THIS FUNCTION IN A SERIES IN SPHERICAL HARMONICS
+! NRabParametrs () - ARRAY OF OPERATING PARAMETERS            
 	subroutine EFSH_FUNCTION_EXPANSION_SPHERICAL_HARMONICS(Nn,L,ML,Npoint,R,RFun,RFunA,Lmin,Lmax,A,NpointNew,Rnew,RcoffSH,NRabParametrs) 
      implicit none
      integer::Nn,L,ML,Npoint,Lmin,Lmax,NpointNew
@@ -286,38 +285,38 @@ module mefsh
     end subroutine EFSH_FUNCTION_EXPANSION_SPHERICAL_HARMONICS 
 
 
-    ! ондопнцпюллю пюяверю йнщттхжхемрю пюгкнфемхъ тсмйжхх б пъд он ятепхвеяйхл цюплнмхйюл
-    ! нохяюмхе оюпюлерпнб ондопнцпюллш
-	! L1-нпахрюкэмши лнлемр пюгкнцюелни б пъд тсмйжхх
-	! L2-нпахрюкэмши лнлемр йнщттхжхемрю пюгкнфемхъ
-	! M-опнейжхъ нпахрюкэмнцн лнлемрю
-	! Ninterval-вхякн хмрепбюкнб юоопнйяхлхпнбюммни пюгкнцюелни тсмйжхх
-    ! NpolA-ЯРЕОЕМЭ ОНКХМНЛЮ Я ЙНЩТТХЖХЕМРЮЛХ AcoffPolinom
-	! XlimF(2,Ninterval)-люяяхб цпюмхж хмрепбюкнб юопнйяхлюжхх
-	! AcoffPolinom(NpolA+1,Ninterval)-люяяхб йнщттхжхемрнб онкхмнлю бундъыецн б тсмйжхч 
-	! ALFAPolin(3,Ninterval)-люяяхб йнщттхжхемрнб онкхмнлю брнпнцн онпъдйю ALFA
-	! Na-вхякн рнвей йнщттхжхемрю пюгкнфемхъ
-	! A-пюяярнъмхе нр мювюкю йннпдхмюр юрнлмни яхярелш дн жемрпю нрмнярхрекэмн йнрнпнцн нясыеярбкъеряъ пюгкнфемхе
-	! яоежхюкэмне сйюгюмхе мю рхо ялеыемхъ юрнлмни яхярелш йннпдхмюр 
-	! A>0-ЯЛЕЫЕМХЕ Б ОНКНФХРЕКЭМНЛ МЮОПЮБКЕМХХ НЯХ OZ
-	! A<0-ЯЛЕЫЕМХЕ Б НРПХЖЮРЕКЭМНЛ МЮОПЮБКЕМХХ НЯХ OZ
-	! гмюй пюяярнъмхъ сйюгшбюер мю рхо ялеыемхъ                                                               
-	! R(N)-люяяхб гмювемхи пюдхсяю 
-	! RFUN(N)-люяяхб гмювемхи бнкмнбни тсмйжхх б рнвйюу R(N)
-	! Ra(N)-люяяхб гмювемхи пюдхсяю б яхяреле йннпдхмюр нрмняхрекэмн жемрпю пюгкнфемхъ
-	! ACoff(N)-гмювемхе йнщттхжхемрю пюгкнфемхъ б рнвйюу Ra(N)
-	! QL1(L1-IABS(M)+1)-люяяхб йнщттхжхемрнб опедярюбкемхъ цюплнмхйх пюгкнцюелни тсмйжхх
-	! ZM(IABS(M)+1)-люяяхб йнщттхжхемрнб ахмнлю
-	! Zaa(L1-IABS(M)+1,L1-IABS(M)+1)-люяяхб ахмнлхюкэмшу йнщттхжхемрнб
-	! RcoffSin(2,2*IABS(M)+2)-люяяхб йнщттхжхемрнб опедярюбкемхъ sin(x)^i=SUM(Rcoffp*cos(px))+SUM(Rcoffq*sin(qx))  
-      ! RcoffCos(L1-IABS(M)+1,L1-IABS(M)+1)-люяяхб йнщттхжхемрнб опедярюбкемхъ cos(x)^i=SUM(Rcoffp*cos(px)) дкъ йюфдни яреоемх
-	! нр 0 дн i 
-	! NInt(L1-IABS(M)+1,Na)-люяяхб вхяек хмрепбюкнб оноюдючыхи б хмрепбюк хмрецпхпнбюмхъ
-    ! NInterH(L1-IABS(M)+1,Na)-люяяхб мнлепнб мювюкэмнцн хмрепбюкю юоопнйяхлюжхх оноюбьецн б хмрепбюк хмрецппнбюмхъ
-	! NInterK(L1-IABS(M)+1,Na)-люяяхб мнлепнб йнмевмнцн хмрепбюкю юоопнйяхлюжхх оноюбьецн б хмрепбюк хмрецпхпнбюмхъ
-	! NumbreIntTeta-вхякн хмрепбюкнб юоопнйяхлюжхх тсмйжхи он сцкс хмрецпхпнбюмхъ
-	! XlimZFK(L1-IABS(M)+1,Na,2,NInt,NpolA+1,NumbreIntTeta)-люяяхб опедекнб хмрепбюкнб юоопнйяхлюжхх он сцкс хмрецпхпнбюмхъ
-	! AcoffApro(L1-IABS(M)+1,Na,3,NInt,NpolA+1,NumbreIntTeta)-люяяхб йнщттхжхемрнб юоопнйяхлюжхх мю хмрепбюкюу юоопнйяхлюжхх	      
+! SUBPROGRAM FOR CALCULATING THE EXPANSION COEFFICIENT OF A FUNCTION IN A SERIES IN SPHERICAL HARMONICS
+! DESCRIPTION OF SUBPROGRAM PARAMETERS
+! L1-ORBITAL MOMENT OF FUNCTIONS DECOMPOSABLE IN A SERIES
+! L2-ORBITAL MOMENT OF EXPANSION COEFFICIENT
+! M-PROJECTION OF THE ORBITAL MOMENT
+! Ninterval - NUMBER OF INTERVALS OF APPROXIMATED DECOMPOSABLE FUNCTION
+! NpolA-degree of a polynomial with coefficients AcoffPolinom
+! XlimF (2, Ninterval) - ARRAY OF APROXIMATION INTERVAL BOUNDARIES
+! AcoffPolinom (NpolA + 1, Ninterval) - ARRAY OF COEFFICIENTS OF THE POLYNOM IN THE FUNCTION
+! ALFAPolin (3, Ninterval) - ARRAY OF SECOND-ORDER POLYNOMA COEFFICIENTS ALFA
+! Na-NUMBER OF DOTS OF DECOMPOSITION COEFFICIENT
+! A-DISTANCE FROM THE BEGINNING OF THE ATOMIC SYSTEM COORDINATES TO THE CENTER RELATIVE TO WHICH THE DECOMPOSITION IS CARRIED OUT
+! SPECIAL REFERENCE TO THE TYPE OF DISPLACEMENT OF THE ATOMIC SYSTEM OF COORDINATES
+! A> 0-offset in the positive direction of the OZ axis
+! A <0-offset in the negative direction of the OZ axis
+! THE DISTANCE SIGN INDICATES THE TYPE OF OFFSET
+! R (N) -ARRAY OF RADIUS VALUES
+! RFUN (N) - ARRAY OF WAVE FUNCTION VALUES AT POINTS R (N)
+! Ra (N) - ARRAY OF RADIUS VALUES IN THE SYSTEM OF COORDINATES REGARDING THE CENTER OF DECOMPOSITION
+! ACoff (N) - VALUE OF THE EXPANSION COEFFICIENT AT POINTS Ra (N)
+! QL1 (L1-IABS (M) +1) - ARRAY OF HARMONIC REPRESENTATION COEFFICIENTS OF THE DECOMPOSABLE FUNCTION
+! ZM (IABS (M) +1) -BINOM COEFFICIENTS ARRAY
+! Zaa (L1-IABS (M) + 1, L1-IABS (M) +1) -BINOMIAL COEFFICIENTS ARRAY
+! RcoffSin (2,2 * IABS (M) +2) -ARRAY OF REPRESENTATION COEFFICIENTS sin (x) ^ i = SUM (Rcoffp * cos (px)) + SUM (Rcoffq * sin (qx))
+! RcoffCos (L1-IABS (M) + 1, L1-IABS (M) +1) -ARRAY OF REPRESENTATION COEFFICIENTS cos (x) ^ i = SUM (Rcoffp * cos (px)) FOR EACH DEGREE
+! FROM 0 TO i
+! NInt (L1-IABS (M) + 1, Na) - ARRAY OF INTERVAL NUMBERS FITTING IN THE INTEGRATION INTERVAL
+! NInterH (L1-IABS (M) + 1, Na) -ARRAYS OF NUMBERS OF THE INITIAL APPROXIMATION INTERVAL INTO THE INTEGRATION INTERVAL
+! NInterK (L1-IABS (M) + 1, Na) - ARRAY OF NUMBERS OF THE END INTERVAL OF APPROXIMATION OF THE FOLLOWED INTO THE INTEGRATION INTERVAL
+! NumbreIntTeta-NUMBER OF INTERVALS OF APPROXIMATION OF FUNCTIONS BY ANGLE OF INTEGRATION
+! XlimZFK (L1-IABS (M) + 1, Na, 2, NInt, NpolA + 1, NumbreIntTeta) - ARRAY OF APPROXIMATION INTERVALS BY THE INTEGRATION ANGLE
+! AcoffApro (L1-IABS (M) + 1, Na, 3, NInt, NpolA + 1, NumbreIntTeta) - ARRAY OF APPROXIMATION COEFFICIENTS AT APPROXIMATION INTERVALS
     subroutine EFSH_COEFFICIENT_EXPANSION_SPHERICAL_HARMONICS_ALFA(L1,L2,M,A,Ninterval,NpolA,XlimF,AcoffPolinom,ALFAPolin,Na,Ra,ACoff,QL1,ZM,Zaa,RcoffSin,RcoffCos,NumbreInter,NInterH,NInterK,NumbreIntTeta,XlimZFK,AcoffApro)
       implicit none
 
@@ -458,16 +457,16 @@ module mefsh
 
 
 
-    ! ондопнцпюллю пюяверю бяонлнцюрекэмшу оюпюлерпнб 
-    ! нохяюмхе оюпюлерпнб ондопнцпюллш
-	! L1-нпахрюкэмши лнлемр пюгкнцюелни тсмйжхх
-	! M-опнейжхъ лнлемрю
-	! QL1(L1-IABS(M)+1)-люяяхб йнщттхжхемрнб опедярюбкемхъ цюплнмхйх пюгкнцюелни тсмйжхх
-	! ZM(IABS(M)+1)-люяяхб йнщттхжхемрнб ахмнлю
-	! Zaa(L1-IABS(M)+1,L1-IABS(M)+1)-люяяхб ахмнлхюкэмшу йнщттхжхемрнб
-	! RcoffSin(2,2*IABS(M)+2)-люяяхб йнщттхжхемрнб опедярюбкемхъ sin(x)^i=SUM(Rcoffp*cos(px))+SUM(Rcoffq*sin(qx))  
-    ! RcoffCos(L1-IABS(M)+1,L1-IABS(M)+1)-люяяхб йнщттхжхемрнб опедярюбкемхъ cos(x)^i=SUM(Rcoffp*cos(px)) дкъ йюфдни яреоемх
-	! нр 0 дн i 
+! SUB-PROGRAM FOR CALCULATION OF AUXILIARY PARAMETERS
+! DESCRIPTION OF SUBPROGRAM PARAMETERS
+! L1-ORBITAL TORQUE OF THE EXPANDABLE FUNCTION
+! M-PROJECTION OF THE MOMENT
+! QL1 (L1-IABS (M) +1) - ARRAY OF HARMONIC REPRESENTATION COEFFICIENTS OF THE DECOMPOSABLE FUNCTION
+! ZM (IABS (M) +1) -BINOM COEFFICIENTS ARRAY
+! Zaa (L1-IABS (M) + 1, L1-IABS (M) +1) -BINOMIAL COEFFICIENTS ARRAY
+! RcoffSin (2,2 * IABS (M) +2) - ARRAY OF REPRESENTATION COEFFICIENTS sin (x) ^ i = SUM (Rcoffp * cos (px)) + SUM (Rcoffq * sin (qx))
+! RcoffCos (L1-IABS (M) + 1, L1-IABS (M) +1) -ARRAY OF REPRESENTATION COEFFICIENTS cos (x) ^ i = SUM (Rcoffp * cos (px)) FOR EACH DEGREE
+! FROM 0 TO i
     subroutine EFSH_CALCULATION_COEFFICIENT_ALFAZX(L1,M,QL1,ZM,Zaa,RcoffSin,RcoffCos)
      implicit none
      integer::L1,M
@@ -527,26 +526,26 @@ module mefsh
 
 
 
-  ! ондопнцпюллш гюлемш тсмйжхи бундъыху б пюдхюкэмсч вюярэ бнкмнбни тсмйжхх  
-  ! онкхмнлюлх брнпнцн онпъдйю
-  ! нохяюмхе оюпюлерпнб ондопнцпюллш
-  ! IND1-оепбши хмдейя люяяхбнб XlimZFK,AcoffApro
-  ! IND2-брнпни хмдейя люяяхбнб XlimZFK,AcoffApro 
-  ! L-нпахрюкэмши лнлемр 
-  ! Nst-ЯРЕОЕМЭ НАЫЕЦН ЛМНФХРЕКЪ  r^Nst*sum(r^i*exp(-ALFA*r))
-  ! RA-гмювемхе пюдхсяю б мнбни яхяреле йнннпдхмюр б йнрнпни лш опнбндхл пювер
-  ! A- ялеыемхе хг юрнлмни яхярелш йннпдхмюр
-  ! юоопнйяхлюжхъ хяундмни тсмйжхх он R
-  ! Ninterval-ВХЯКН ХМРЕПБЮКНБ (ЮООПНЙЯХЛЮЖХЪ ТСМЙЖХХ ОН r)
-  ! NpolA-яреоемэ онкхмнлю я йнщттхжхемрюлх AcoffPolinom
-  ! XlimF(2,Ninterval)-люяяхб цпюмхж хмрепбюкнб юопнйяхлюжхх
-  ! ALFA(3,Ninterval)-люяяхб йнщттхжхемрнб онкхмнлю брнпнцн онпъдйю ALFA-щйяонремжхюкэмюъ яреоемэ
-  ! NInt-вхякн хмрепбюкнб оноюдючыхи б хмрепбюк хмрецпхпнбюмхъ
-  ! NInterH-мнлеп мювюкэмнцн хмрепбюкю юоопнйяхлюжхх оноюбьецн б хмрепбюк хмрецппнбюмхъ
-  ! NInterK-мнлеп йнмевмнцн хмрепбюкю юоопнйяхлюжхх оноюбьецн б хмрепбюк хмрецпхпнбюмхъ
-  ! NumbreIntTeta-вхякн хмрепбюкнб юоопнйяхлюжхх тсмйжхи он сцкс хмрецпхпнбюмхъ
-  ! XlimZFK(IND1,IND2,2,NInt,NpolA+1,NumbreIntTeta)-люяяхб опедекнб хмрепбюкнб юоопнйяхлюжхх он сцкс хмрецпхпнбюмхъ
-  ! AcoffApro(IND1,IND2,3,NInt,NpolA+1,NumbreIntTeta)-люяяхб йнщттхжхемрнб юоопнйяхлюжхх мю хмрепбюкюу юоопнйяхлюжхх	      
+  ! SUB-PROGRAMS FOR REPLACING FUNCTIONS INCLUDED IN THE RADIAL PART OF THE WAVE FUNCTION
+  ! POLYNOMA OF THE SECOND ORDER
+  ! DESCRIPTION OF SUBPROGRAM PARAMETERS
+  ! IND1-FIRST ARRAY INDEX XlimZFK, AcoffApro
+  ! IND2-SECOND ARRAY INDEX XlimZFK, AcoffApro
+  ! L-ORBITAL MOMENT
+  ! Nst-power of common factor r ^ Nst * sum (r ^ i * exp (-ALFA * r))
+  ! RA-VALUE OF RADIUS IN THE NEW COORDINATE SYSTEM IN WHICH WE CARRY OUT THE CALCULATION
+  ! A- OFFSET FROM THE ATOMIC SYSTEM OF COORDINATES
+  ! INITIAL FUNCTION APPROXIMATION BY R
+  ! Ninterval-number of intervals (function approximation by r)
+  ! NpolA-POLYNOMA DEGREE WITH AcoffPolinom coefficients
+  ! XlimF (2, Ninterval) - ARRAY OF APROXIMATION INTERVAL BOUNDARIES
+  ! ALFA (3, Ninterval) - ARRAY OF SECOND-ORDER POLYNOMA COEFFICIENTS ALFA-EXPOTENTIAL DEGREE
+  ! NInt-NUMBER OF INTERVALS FIT IN THE INTEGRATION INTERVAL
+  ! NInterH-NUMBER OF THE STARTING INTERVAL OF APPROXIMATION OF THE INTERVAL IN THE INTEGRATION INTERVAL
+  ! NInterK-NUMBER OF THE END INTERVAL OF APPROXIMATION OF THE INTERVAL INTO INTEGRATION INTERVAL
+  ! NumbreIntTeta-NUMBER OF INTERVALS OF APPROXIMATION OF FUNCTIONS BY ANGLE OF INTEGRATION
+  ! XlimZFK (IND1, IND2,2, NInt, NpolA + 1, NumbreIntTeta) - ARRAY OF APPROXIMATION INTERVALS BY THE INTEGRATION ANGLE
+  ! AcoffApro (IND1, IND2,3, NInt, NpolA + 1, NumbreIntTeta) - ARRAY OF APPROXIMATION COEFFICIENTS ON APPROXIMATION INTERVALS
   subroutine EFSH_PARAMETR_FUNCTION_ALFAZX(IND1,IND2,L,Nst,RA,A,Ninterval,NpolA,XlimF,ALFA,NIntMas,NInterHMas,NInterKMas,NumbreIntTeta,XlimZFK,AcoffApro)
     implicit none
    
@@ -744,26 +743,26 @@ module mefsh
 
 
 
-    ! ондопнцпюллю пюяверю хмрецпюкю бундъыецн б янярюб йнщттхжхемрю пюгкнфемхъ
-    ! нохяюмхе оюпюлерпнб ондопнцпюллш
-	! IND1-оепбши хмдейя
-	! IND2-брнпни хмрдейя
-	! Lx-нпахрюкэмши лнлемр пюгкнцюелни тсмйжхх
-	! L-нпахрюкэмши лнлемр
-	! M-опнейжхъ лнлемрю       
-	! NS1-оюпюлерп хмрецпюкю (онйюгюрекэ)
-	! TL(L-IABS(M)+1)-йнщттхжхемрш опедярюбкемхъ рерю тсмйжхх б бхде (sin(x))^m*SUM(Ti*cos(i*x))
-	! ZZcoff(IABS(M)+1) - ахмнлхюкэмше йнщттхжхемрш дкъ яреоемх IABS(M)
-	! RcoffCos(NS+1,NS1+1)-люяяхб йнщттхжхемрнб опедярюбкемхъ (COS(X))^NS1=SUM(Bp*cos(p*x))
-	! RcoffSin(2,2*IABS(M)+2)- люяяхб йнщттхжхемрнб опедярюбкемхъ (SIN(X))^(2*IABS(M)+1)=SUM(Ap*sin(p*x))+SUM(Bp*cos(p*x))
-    ! NumbreInter-вхякн хмрепбюкнб бундъыху б хмрепбюк хмрецппнбюмъ он R
-	! NpolA-яреоемэ онкхмнлю я йнщттхжхемрюлх AcoffPolinom
-	! NIntH-мнлеп мювюкэмнцн хмрепбюкю он R
-	! NIntK-мнлеп йнмевмнцн хмрепбюкю  он R
-	! NumbreIntTeta-вхякн хмрепбюкнб юоопнйяхлюжхх он сцкс
-	! XlimTeta(IND1,IND2,2,NumbreInter,NpolA+1,NumbreIntTeta)-люяяхб опедекнб хмрепбюкнб юоопнйяхлюжхх он сцкс хмрецпхпнбюмхъ
-	! AcoffAproTeta(IND1,IND2,3,NumbreInter,NpolA+1,NumbreIntTeta)-люяяхб йнщттхжхемрнб юоопнйяхлюжхх мю хмрепбюкюу юоопнйяхлюжхх	      
-    ! AcoffPolinom(NpolA+1,Ninterval)-люяяхб йнщттхжхемрнб онкхмнлю бундъыецн б тсмйжхч 
+! SUBPROGRAM FOR CALCULATING THE INTEGRAL OF THE DECOMPOSITION COEFFICIENT INCLUDED IN THE COMPOSITION
+! DESCRIPTION OF SUBPROGRAM PARAMETERS
+! IND1-FIRST INDEX
+! IND2-SECOND INDEX
+! Lx-ORBITAL MOMENT OF THE EXPANDABLE FUNCTION
+! L-ORBITAL MOMENT
+! M-PROJECTION OF THE MOMENT
+! NS1-PARAMETER OF INTEGRAL (INDICATOR)
+! TL (L-IABS (M) +1) - COEFFICIENTS OF REPRESENTATION OF THETA FUNCTIONS IN THE FORM (sin (x)) ^ m * SUM (Ti * cos (i * x))
+! ZZcoff (IABS (M) +1) - BINOMIAL COEFFICIENTS FOR DEGREE IABS (M)
+! RcoffCos (NS + 1, NS1 + 1) - ARRAY OF REPRESENTATION COEFFICIENTS (COS (X)) ^ NS1 = SUM (Bp * cos (p * x))
+! RcoffSin (2.2 * IABS (M) +2) - ARRAY OF REPRESENTATION COEFFICIENTS (SIN (X)) ^ (2 * IABS (M) +1) = SUM (Ap * sin (p * x)) + SUM (Bp * cos (p * x))
+! NumbreInter-NUMBER OF INTERVALS INCLUDED IN THE INTERVAL OF INTEGRATION BY R
+! NpolA-POLYNOMA DEGREE WITH AcoffPolinom coefficients
+! NIntH-NUMBER OF START INTERVAL ON R
+! NIntK-R END INTERVAL NUMBER
+! NumbreIntTeta-NUMBER OF APPROXIMATION INTERVALS BY ANGLE
+! XlimTeta (IND1, IND2,2, NumbreInter, NpolA + 1, NumbreIntTeta) - ARRAY OF APPROXIMATION INTERVALS BY THE INTEGRATION ANGLE
+! AcoffAproTeta (IND1, IND2,3, NumbreInter, NpolA + 1, NumbreIntTeta) - ARRAY OF APPROXIMATION COEFFICIENTS AT APPROXIMATION INTERVALS
+! AcoffPolinom (NpolA + 1, Ninterval) - ARRAY OF COEFFICIENTS OF THE POLYNOM IN THE FUNCTION
  	real(8) function EFSH_COEFFICIENT_INTEGRAL_HARMONICS_ALFAZX(IND1,IND2,Lx,L,M,NS1,TL,ZZcoff,RcoffCos,RcoffSin,NumbreInter,NpolA,NIntH,NIntK,NumbreIntTeta,XlimTeta,AcoffAproTeta,AcoffPolinom)
       implicit none
 	
@@ -852,24 +851,24 @@ module mefsh
 
 
 
-  ! ондопнцпюллш гюлемш тсмйжхх R^NSS*EXP(-ALFA*R), R=SQRT(RA^2+A^2+(-)2*RA*A*COS(U))  
-  ! онкхмнлюлх брнпнцн онпъдйю
-  ! нохяюмхе оюпюлерпнб ондопнцпюллш
-  ! NSS-онйюгюрекэ яреоемх
-  ! NALFA-мнлеп хмрепбюкю юоопнйяхлюжхх
-  ! RAD-оепбши оюпюлерп тсмйжхх
-  ! AX-брнпни оюпюлерп тсмйжхх
-  ! ALFA(3,NALFA)-люяяхб щйяонремжхюкэмнцн йнщттхжхемрю
-  ! RangleH-мхфмъъ цпюмхжю хмрепбюкю юоопнйяхлюжхх
-  ! RangleK-бепумъъ цпюмхжю хмрепбюкю юоопнйяхлюжхх
-  ! Ninterval-вхякн хмрепбюкнб мю йнрнпше пюгахбюеряъ онкмши хмрепбюк 
-  ! Xlimit(2,Ninterval)-люяяхб цпюмхж хмрепбюкнб
-  ! Xlimit(1,Ninterval)-мювюкн хмрепбюкю
-  ! Xlimit(2,Ninterval)-йнмеж  хмрепбюкю
-  ! RcoffFUN(3,Ninterval)-люяяхб йнщттхжхемрнб онкхмнлнб
-  ! RcoffFUN(1,Ninterval)-йнщттхжхемр яннрберярбсер мскхбни яреоемх онкхмнлю
-  ! RcoffFUN(2,Ninterval)-йнщттхжхемр яннрберярбсер оепбни  яреоемх онкхмнлю
-  ! RcoffFUN(3,Ninterval)-йнщттхжхемр яннрберярбсер брнпни  яреоемх онкхмнлю
+  ! FUNCTION CHANGE REGULATIONS R ^ NSS * EXP (-ALFA * R), R = SQRT (RA ^ 2 + A ^ 2 + (-) 2 * RA * A * COS (U))
+  ! POLYNOMA OF THE SECOND ORDER
+  ! DESCRIPTION OF SUBPROGRAM PARAMETERS
+  ! NSS DEGREE INDICATOR
+  ! NALFA NUMBER OF APPROXIMATION INTERVAL
+  ! RAD-FIRST FUNCTION PARAMETER
+  ! AX-SECOND FUNCTION PARAMETER
+  ! ALFA (3, NALFA) - EXPOTENTIAL FACTOR ARRAY
+  ! RangleH-LOWER BOUNDARY OF APPROXIMATION INTERVAL
+  ! RangleK-UPPER APPROXIMATE INTERVAL BORDER
+  ! Ninterval-NUMBER OF INTERVALS INTO WHICH THE FULL INTERVAL IS BROKEN
+  ! Xlimit (2, Ninterval) - ARRAY OF INTERVAL BOUNDARIES
+  ! Xlimit (1, Ninterval) -BEGIN INTERVAL
+  ! Xlimit (2, Ninterval) - END OF INTERVAL
+  ! RcoffFUN (3, Ninterval) - ARRAY OF POLYNOMA COEFFICIENTS
+  ! RcoffFUN (1, Ninterval) - COEFFICIENT CORRESPONDS TO ZERO POLYNOM DEGREE
+  ! RcoffFUN (2, Ninterval) - COEFFICIENT CORRESPONDS TO THE FIRST DEGREE OF POLYNOMA
+  ! RcoffFUN (3, Ninterval) - THE COEFFICIENT CORRESPONDS TO THE SECOND DEGREE OF POLYNOMA
   subroutine EFSH_PARAMETR_FUNCTION_RDFUN(NSS,NALFA,RAD,AX,ALFA,RangleH,RangleK,Ninterval,Xlimit,RcoffFUN) 
 	implicit none
       
@@ -987,12 +986,12 @@ module mefsh
   end subroutine EFSH_PARAMETR_FUNCTION_RDFUN
 
 
-  ! ондопнцпюллю бшвхякемхъ гмювемхи тсмйжхх R^N1*EXP(-ALFA*R), R=SQRT(RA^2+A^2+(-)2*RA*A*COS(U))   
-  ! N1-яреоемэ пюдхюкэмнцн лмнфхрекъ
-  ! N2-мнлеп хмрепбюкю 
-  ! RA-гмювемхе пюдхсяю б мнбни яхяреле йннпдхмюр(лнкейскъпмюъ яхярелю йннпдхмюр)
-  ! ALFA(3,N2)-люяяхб гмювеми йнщттхжхемрнб юопнйяхлюжхх онкхмнлнл брнпнцн онпъдйю    
-  ! XAS-гмювемхе сцкю (пюдхюмш) 
+! SUB-PROGRAM FOR CALCULATING FUNCTION VALUES R ^ N1 * EXP (-ALFA * R), R = SQRT (RA ^ 2 + A ^ 2 + (-) 2 * RA * A * COS (U))
+! N1-DEGREE OF RADIAL MULTIPLIER
+! N2-INTERVAL NUMBER
+! RA-VALUE OF RADIUS IN THE NEW COORDINATE SYSTEM (MOLECULAR COORDINATE SYSTEM)
+! ALFA (3, N2) - THE ARRAY OF VALUES OF THE APPROXIMATION COEFFICIENTS BY THE SECOND-ORDER POLYNOMA
+! XAS-ANGLE VALUE (RADIANS)
   real(8) function RDFEXP(N1,N2,RA,A,ALFA,XAS)
     implicit none
 	integer::N1,N2
@@ -1025,14 +1024,14 @@ module mefsh
 
      
 
-    ! ондопнцпюллю пюяверю хмрецпюкю 
-    ! нохяюмхе оюпюлерпнб ондопнцпюллш
-	! NpolAA-яреоемэ онкхмнлю
-	! NSP2X- вюярнрю цюплнмхвеяйни тсмйжхх
-	! NSP3X- вюярнрю цюплнмхвеяйни тсмйжхх
-	! NSP4X- вюярнрю цюплнмхвеяйни тсмйжхх
-	! XH-мхфмхи опедек хмрецпхпнбюмхъ
-	! XK-бепумхи опедек хмрецпхпнбюмхъ
+! INTEGRAL CALCULATION SUBPROGRAM
+! DESCRIPTION OF SUBPROGRAM PARAMETERS
+! NpolAA-POLYNOMA DEGREE
+! NSP2X- FREQUENCY OF HARMONIC FUNCTION
+! NSP3X- HARMONIC FUNCTION FREQUENCY
+! NSP4X- HARMONIC FUNCTION FREQUENCY
+! XH-LOWER LIMIT OF INTEGRATION
+! XK-UPPER INTEGRATION LIMIT
     real(8) function EFSH_INT_SH_ALFA(NpolAA,NSP2X,NSP3X,NSP4X,XH,XK)
       implicit none
       integer::NpolAA,NSP2X,NSP3X,NSP4X
@@ -1107,13 +1106,13 @@ module mefsh
 
 
 
-	! ондопнцпюллю онксвемхъ гмювемхъ рерю тсмйжхх (пеййспемрмшл яонянанл)
-    ! нохяюмхе оюпюлерпнб ондопнцпюллш
-	! L-нпахрюкэмши лнлемр тсмйжхх
-	! M-опнейжхъ нпахрюкэмнцн лнлемрю (опнцпюллю пюяялюрпхбюер яксвюи (M>=0)  
-	! N-вхякн рнвей б йнрнпшу мюундхл гмювемхъ (б хмрепбюке (0,PI))
-    ! X(N)-люяяхб гмювеми юпцслемрю
-	! Y(N)-люяяхб гмювемхи тсмйжхх
+! SUB-PROGRAM FOR OBTAINING THE VALUE OF THETA FUNCTION (RECURRENT METHOD)
+! DESCRIPTION OF SUBPROGRAM PARAMETERS
+! L-ORBITAL MOMENT FUNCTION
+! M-PROJECTION OF THE ORBITAL MOMENTUM (THE PROGRAM CONSIDERS THE CASE (M> = 0)
+! N-NUMBER OF POINTS WHICH WE FIND VALUES (IN THE INTERVAL (0, PI))
+! X (N) -MASSIF OF ARGUMENT VALUES
+! Y (N) -ARRAY OF FUNCTION VALUES
 	  
     subroutine EFSH_VALUE_TETA_FUNCTION(L,M,N,X,Y)
      implicit none
@@ -1178,14 +1177,14 @@ module mefsh
 
 
 
-    ! ондопнцпюллю пюяверю йнщттхжхемрнб онкхмнлю 2-нцн онпъдйю 
-	! он лерндс йпюлепю
-	! нохяюмхе оюпюлерпнб ондопнцпюллш
+! SUBPROGRAM FOR CALCULATING THE COEFFICIENTS OF THE POLYNOMA OF THE 2ND ORDER
+! BY CRAMERA METHOD
+! DESCRIPTION OF SUBPROGRAM PARAMETERS
       
-	! Npoints(3)-люяяхб мнлепнб рнвей 
-	! R(NN)-люяяхб гмювемхи юпцслемрю
-	! FUN(NN)-люяяхб гмювемхи тсмйжхх
-	! Acoff(3)-люяяхб йнщттхжхемрнб онкхмнлю 
+! Npoints (3) - ARRAY OF POINT NUMBERS
+! R (NN) - ARGUMENT VALUE ARRAY
+! FUN (NN) -ARRAY OF FUNCTION VALUES
+! Acoff (3) -ARRAY OF POLYNOMA COEFFICIENTS
 	subroutine EFSH_COEFFICIENT_POLINOM_KRAMERA2(Npoints,R,FUN,Acoff)
       implicit none
       
@@ -1223,17 +1222,17 @@ module mefsh
 
 
 	
-	! ондопнцпюллю пюяверю йнщттхжхемрнб онкхмнлю N-нцн онпъдйю 
-	! он лерндс йпюлепю
-	! нохяюмхе оюпюлерпнб ондопнцпюллш
-	! NL-яреоемэ йнщттхжхемрю
-	! Np-онпъднй онкхмнлю
-	! Npoints(N+1)-люяяхб мнлепнб рнвей 
-	! R(NN)-люяяхб гмювемхи юпцслемрю
-	! FUN(NN)-люяяхб гмювемхи тсмйжхх
-	! Acoff(N+1)-люяяхб йнщттхжхемрнб онкхмнлю 
-	! б люяяхбе йнщттхжхемрнб мнлеп щкелемрю яннрберярбсер мнлепс яреоемх он опюбхкс  NЯРЕОЕМХ=NМНЛЕП ЩКЕЛЕМРЮ-1
-	! гЮОНКМЕМХЕ ОПНХЯУНДХР ОН ОНМХФЕМХЧ ЯРЕОЕМХ ОНКХМНЛЮ
+! SUBPROGRAM FOR CALCULATION OF N-ORDER POLYNOMA COEFFICIENTS
+! BY CRAMERA METHOD
+! DESCRIPTION OF SUBPROGRAM PARAMETERS
+! NL-DEGREE OF COEFFICIENT
+! Np-POLYNOMA ORDER
+! Npoints (N + 1) - ARRAY OF POINT NUMBERS
+! R (NN) - ARGUMENT VALUE ARRAY
+! FUN (NN) -ARRAY OF FUNCTION VALUES
+! Acoff (N + 1) -ARRAY OF POLYNOMA COEFFICIENTS
+! IN THE ARRAY OF COEFFICIENTS THE NUMBER OF THE ELEMENT CORRESPONDS THE NUMBER OF THE DEGREE BY THE RULE Ndegree = Nthe number of the element-1
+! Filling occurs by decreasing the degree of the polynomial
 	subroutine EFSH_COEFFICIENT_POLINOM_KRAMERA(NL,Np,Npoints,R,FUN,Acoff)
       implicit none
 
@@ -1436,13 +1435,13 @@ module mefsh
 	
 
 
-      ! ондопнцпюллю опнбепйх сякнбхъ мнплхпнбйх дбсу рере тсмйжхи
-	! нохяюмхе оюпюлерпнб ондопнцпюллш
-	! L1-нпахрюкэмши лнлемр оепбни тсмйжхх 
-      ! L2-нпахрюкэмши лнлемр брнпни тсмйжхх 
-      ! M-опнейжхъ лнлемрю 
-	! Q1(L1-M+1)-люяяхб йнщттхжхемрнб оепбни тсмйжхх
-	! Q2(L2-M+1)-люяяхб йнщттхжхемрнб оепбни тсмйжхх
+! SUB-PROGRAM FOR CHECKING THE NORMALIZATION CONDITIONS OF TWO TETE FUNCTIONS
+! DESCRIPTION OF SUBPROGRAM PARAMETERS
+! L1-ORBITAL MOMENT OF FIRST FUNCTION
+! L2-ORBITAL MOMENT OF THE SECOND FUNCTION
+! M-PROJECTION OF THE MOMENT
+! Q1 (L1-M + 1) - ARRAY OF FIRST FUNCTION COEFFICIENTS
+! Q2 (L2-M + 1) - ARRAY OF FIRST FUNCTION COEFFICIENTS
       
 	real(8) function EFSH_NORMIROVKA_TETA_FUNCTION(L1,L2,M,Q1,Q2)
       implicit none
@@ -1515,13 +1514,13 @@ module mefsh
 
 
 
-	! ондопнцпюллю пюяверю йнщттхжхемрнб рерю тсмйжхх бундъыеи б янярюб ятепхвеяйни тсмйжхх 
-	!(пейсппемрмшл яонянанл)
-	! ЙНЩТТХЖХЕМРШ РЕРЮ ТСМЙЖХХ ДКЪ ЯКСВЮЪ M>=0
-      ! нохяюмхе оюпюлерпнб ондопнцпюллш
-	! L-гмювемхе нпахрюкэмнцн лнлемрю
-	! M-гмювемхе опнейжхх нпахрюкэмнцн лнлемрю
-	! Q(L-M+1)-люяяхб йнщтхжхемрнб бундъжху б ярпсйрспс ятепхвеяйни тсмйжхх (sin(x))^m*SUM(Qi*(cos(x))^i)
+! SUBPROGRAM FOR CALCULATING THE COEFFICIENTS OF THE THETA FUNCTION IN THE COMPOSITION OF A SPHERICAL FUNCTION
+! (RECURRENT METHOD)
+! coefficients of theta function for the case M> = 0
+! DESCRIPTION OF SUBPROGRAM PARAMETERS
+! L-VALUE OF ORBITAL MOMENT
+! M-VALUE OF ORBITAL MOMENTUM PROJECTION
+! Q (L-M + 1) - ARRAY OF INCLUSIONS IN THE STRUCTURE OF A SPHERICAL FUNCTION (sin (x)) ^ m * SUM (Qi * (cos (x)) ^ i)
 	subroutine EFSH_COEFFICIENT_TETA_FUNCTION(L,M,Q)
 	implicit none
 	
@@ -1648,13 +1647,13 @@ module mefsh
 
 
 
-	! ондопнцпюллю пюяверю йнщттхжхемрнб рерю тсмйжхх бундъыеи б янярюб ятепхвеяйни тсмйжхх 
-	!(хяонкэгсъ дхттепемжхюкэмне опедярюбкемхе)
-	! ЙНЩТТХЖХЕМРШ РЕРЮ ТСМЙЖХХ ДКЪ ЯКСВЮЪ M>=0
-    ! нохяюмхе оюпюлерпнб ондопнцпюллш
-	! L-гмювемхе нпахрюкэмнцн лнлемрю
-	! M-гмювемхе опнейжхх нпахрюкэмнцн лнлемрю
-	! Q(L-M+1)-люяяхб йнщтхжхемрнб бундъжху б ярпсйрспс ятепхвеяйни тсмйжхх (sin(x))^m*SUM(Qi*(cos(x))^i)
+! SUBPROGRAM FOR CALCULATING THE COEFFICIENTS OF THE THETA FUNCTION IN THE COMPOSITION OF A SPHERICAL FUNCTION
+! (USING A DIFFERENTIAL REPRESENTATION)
+! coefficients of theta function for the case M> = 0
+! DESCRIPTION OF SUBPROGRAM PARAMETERS
+! L-VALUE OF ORBITAL MOMENT
+! M-VALUE OF ORBITAL MOMENTUM PROJECTION
+! Q (L-M + 1) - ARRAY OF INCLUSIONS IN THE STRUCTURE OF A SPHERICAL FUNCTION (sin (x)) ^ m * SUM (Qi * (cos (x)) ^ i)
 	subroutine EFSH_COEFFICIENT_TETA_FUNCTION_DIFFER(L,M,Q)
 	  implicit none
 	
@@ -1693,11 +1692,11 @@ module mefsh
     end subroutine EFSH_COEFFICIENT_TETA_FUNCTION_DIFFER
 
 
-	! ондопнцпюллю онксвемхъ йнщттхжхемрнб опенапюгнбюмхъ бхдю 
-	! cos(x)^i=SUM(Rcoffp*cos(px))  
-	! нохяюмхе оюпюлерпнб ондопнцпюллш
-	! N-люйяхлюкэмюъ яреоемэ онкхмнлю
-	! Rcoff(N+1,N+1)-люяяхб йнщттхжхемрнб опедярюбкемхе cos(x)^i=SUM(Rcoffp*cos(px))  
+! SUB-PROGRAM FOR OBTAINING THE SPECIES CONVERSION COEFFICIENTS
+! cos (x) ^ i = SUM (Rcoffp * cos (px))
+! DESCRIPTION OF SUBPROGRAM PARAMETERS
+! N-MAXIMUM POLYNOMA DEGREE
+! Rcoff (N + 1, N + 1) -ARRAY OF COEFFICIENTS PRESENTATION cos (x) ^ i = SUM (Rcoffp * cos (px))
 	subroutine EFSH_COEFFICIENT_TRANSFORMATION_POLINOM_COS(N,Rcoff)
 	  implicit none
 
@@ -1734,11 +1733,11 @@ module mefsh
 
 
 
-    ! ондопнцпюллю онксвемхъ йнщттхжхемрнб опенапюгнбюмхъ бхдю 
-	! cos(x)^i=SUM(Rcoffp*cos(px))  
-	! нохяюмхе оюпюлерпнб ондопнцпюллш
-	! N-люйяхлюкэмюъ яреоемэ онкхмнлю
-	! RcoffN(N+1)-люяяхб йнщттхжхемрнб опедярюбкемхе cos(x)^i=SUM(Rcoffp*cos(px))  
+! SUB-PROGRAM FOR OBTAINING THE SPECIES CONVERSION COEFFICIENTS
+! cos (x) ^ i = SUM (Rcoffp * cos (px))
+! DESCRIPTION OF SUBPROGRAM PARAMETERS
+! N-MAXIMUM POLYNOMA DEGREE
+! RcoffN (N + 1) - COEFFICIENT ARRAY PRESENTATION cos (x) ^ i = SUM (Rcoffp * cos (px))
 	subroutine EFSH_COEFFICIENT_TRANSFORMATION_POLINOM_COSN(N,RcoffN)
 	  implicit none
 
@@ -1800,13 +1799,13 @@ module mefsh
 
 
 
-    ! ондопнцпюллю онксвемхъ йнщттхжхемрнб опенапюгнбюмхъ онкхмнл 
-	! sin(x)^i=SUM(Rcoffp*cos(px))+SUM(Rcoffq*sin(qx))  
-	! нохяюмхе оюпюлерпнб ондопнцпюллш
-	! N-люйяхлюкэмюъ яреоемэ онкхмнлю
-	! Rcoff(2,N+1)-люяяхб йнщттхжхемрнб опедярюбкемхе sin(x)^i=SUM(Rcoffp*cos(px))+SUM(Rcoffq*sin(qx))  
-	! Rcoff(1,N+1)-йнщттхжхемрш опх SIN(PX) 
-	! Rcoff(2,N+1)-йнщттхжхемрш опх COS(PX) 
+! SUBPROGRAM FOR OBTAINING THE POLYNOMY TRANSFORMATION COEFFICIENTS
+! sin (x) ^ i = SUM (Rcoffp * cos (px)) + SUM (Rcoffq * sin (qx))
+! DESCRIPTION OF SUBPROGRAM PARAMETERS
+! N-MAXIMUM POLYNOMA DEGREE
+! Rcoff (2, N + 1) COEFFICIENT ARRAY REPRESENTATION sin (x) ^ i = SUM (Rcoffp * cos (px)) + SUM (Rcoffq * sin (qx))
+! Rcoff (1, N + 1) COEFFICIENTS AT SIN (PX)
+! Rcoff (2, N + 1) COEFFICIENTS AT COS (PX)
 	subroutine EFSH_COEFFICIENT_TRANSFORMATION_POLINOM_SINN(N,Rcoff)
 	implicit none
 
@@ -1883,11 +1882,11 @@ module mefsh
 
 
 
-      ! ондопнцпюллю пюяверю ахмнлхюкэмшу йнщттхжхемрнб ( йнщттхжхемрнб бшпюфемхъ (1+X)^N)
-	! (пейсппемрмшл яонянанл)
-      ! нохяюмхе оюпюлерпнб ондопнцпюллш
-	! N-люйяхлюкэмюъ яреоемэ онкхмнлю
-	! Z(N+1)-люяяхб ахмнлхюкэмшу йнщттхжхемрнб
+! SUB-PROGRAM FOR CALCULATING BINOMIAL COEFFICIENTS (EXPRESSION COEFFICIENTS (1 + X) ^ N)
+! (RECURRENT METHOD)
+! DESCRIPTION OF SUBPROGRAM PARAMETERS
+! N-MAXIMUM POLYNOMA DEGREE
+! Z (N + 1) -ARRAY OF BINOMIAL COEFFICIENTS
       subroutine EFSH_BINOMIAL_COEFFICIENT(N,Z)
 	implicit none
 
@@ -1939,13 +1938,13 @@ module mefsh
       return
       end function
       
-	! ондопнцпюллю времхъ х гюохях пюдхюкэмшу вюяреи  
-	! бнкмнбшу тсмйжхи
-	! нохяюмхе бундмшу оюпюлерпнб ондопнцпюллш
-      ! KL-оюпюлерп(KL=2-времхе, KL=1-гюохяэ)
-	! NF-мнлеп тсмйжхх (мнлеп нанкнвйх)
-	! R(M2Z)-люяяхб гмювемхи пюдхюкэмни вюярх бнкмнбни тсмйжхх  
-      ! RDM(IS*M2Z)-люяяхб гмювемхи пюдхюкэмшу вюяреи бнкмнбни тсмйжхх йнмтхцспюжхх             
+! READ AND WRITE RADIAL PARTS SUBROUTINE
+! WAVE FUNCTIONS
+! DESCRIPTION OF INPUT PARAMETERS OF THE SUBPROGRAM
+! KL-PARAMETER (KL = 2-READ, KL = 1-WRITE)
+! NF-FUNCTION NUMBER (SHELL NUMBER)
+! R (M2Z) - ARRAY OF VALUES OF THE RADIAL PART OF THE WAVE FUNCTION
+! RDM (IS * M2Z) - ARRAY OF VALUES OF RADIAL PARTS OF WAVE FUNCTIONS CONFIGURATION       
       subroutine  EFSH_RW(KL,NF,R,RDM,M2Z)
       implicit none
       integer::KL,NF,M2Z,I,J
@@ -1998,13 +1997,13 @@ module mefsh
   end subroutine EFSH_APROCSIM_TETA
 
 
-  ! ондопнцпюллю юопнйяхлюжхх рерю тсмйжхх тсмйжхеи бхдю sin(x)^M*SUM(Qi*cos(i*x))
-  ! нохяюмхе оюпюлерпнб ондопнцпюллш
-  ! M-опнейжхъ нпахрюкэмнцн лнлемрю
-  ! N-вхякн рнвей
-  ! X(N)-люяяхб гмювемхи юпцслемрю рере-тсмйжхх
-  ! Y(N)-люяяхб гмювемхи рерю-тсмйжхх 
-  ! Qcoff(N)-Mюяяхб гмювеми йнщттхжхемрнб юопнйяхлюжхх
+! SUBPROGRAM FOR APPROXIMATING THETA FUNCTIONS BY FUNCTIONS OF THE FORM sin (x) ^ M * SUM (Qi * cos (i * x))
+! DESCRIPTION OF SUBPROGRAM PARAMETERS
+! M-PROJECTION OF ORBITAL MOMENT
+! N-NUMBER OF DOTS
+! X (N) -MASSIF OF VALUES OF THE TETE FUNCTION ARGUMENT
+! Y (N) -ARRAY OF VALUES OF THEETA FUNCTION
+! Qcoff (N) -MASSIVE OF VALUES OF THE APPROXIMATION COEFFICIENTS
   subroutine EFSH_COEFFICIENT_TETA_FUNCTION_APRO(M,N,X,Y,Qcoff) 
    implicit none
    integer::N,M,ierr 
@@ -2052,13 +2051,13 @@ module mefsh
   end subroutine EFSH_COEFFICIENT_TETA_FUNCTION_APRO
 
 
-      ! ондопнцпюллю юопнйяхлюжхх рерю тсмйжхх тсмйжхеи бхдю sin(x)^M*SUM(Qi*cos(x)^i)
-	! нохяюмхе оюпюлерпнб ондопнцпюллш
-	! M-опнейжхъ нпахрюкэмнцн лнлемрю
-      ! N-вхякн рнвей
-	! X(N)-люяяхб гмювемхи юпцслемрю рере-тсмйжхх
-	! Y(N)-люяяхб гмювемхи рерю-тсмйжхх 
-	! Qcoff(N)-Mюяяхб гмювеми йнщттхжхемрнб юопнйяхлюжхх
+! SUBPROGRAM FOR APPROXIMATING THETA FUNCTIONS BY FUNCTIONS OF THE FORM sin (x) ^ M * SUM (Qi * cos (x) ^ i)
+! DESCRIPTION OF SUBPROGRAM PARAMETERS
+! M-PROJECTION OF ORBITAL MOMENT
+! N-NUMBER OF DOTS
+! X (N) -MASSIF OF VALUES OF THE TETE FUNCTION ARGUMENT
+! Y (N) -ARRAY OF VALUES OF THEETA FUNCTION
+! Qcoff (N) -MASSIVE OF VALUES OF THE APPROXIMATION COEFFICIENTS
 	subroutine EFSH_COEFFICIENT_TETA_FUNCTION_APROTUS(M,N,X,Y,Qcoff) 
       implicit none
 
@@ -2109,30 +2108,30 @@ module mefsh
       end subroutine EFSH_COEFFICIENT_TETA_FUNCTION_APROTUS
 
 
-      ! ондопнцпюллю юоопнйяхлюжхх пюдхюкэмни вюярх бнкмнбни тсмйжхх (дхяйпермни бнкмнбни тсмйжхх)
-      ! нохяюмхе оюпюлерпнб ондопнцпюллш
-      ! nn-ЦКЮБМНЕ ЙБЮМРНБНЕ ВХЯКН
-	! l-НПАХРЮКЭМНЕ ЙБЮМРНБНЕ ВХЯКН
-      ! NpointFUN-ВХЯКН РНВЕЙ
-	! R(N)-ЛЮЯЯХБ ГМЮВЕМХИ ПЮДХСЯЮ
-	! Rfun(N)-ЛЮЯЯХБ ГМЮВЕМХИ ТСМЙЖХХ
-	! Nraz-ОЮПЮЛЕРЕП СБЕКХВХБЮЧЫХИ Б Nraz ПЮГ ХЯУНДМНЕ ВХЯКН ХМРЕПБЮКНБ 2(nn-l) 
-	! Ninterval-ВХЯКН ХМРЕПБЮКНБ ЮОПНЙЯХЛЮЖХХ
-	! NpolAR-ЯРЕОЕМЭ ОНКХМНЛЮ  Я ЙНЩТТХЖХЕМРЮЛХ ARCoffPolinom
-	! Xlim(2,Ninterval)-ЛЮЯЯХБ ОПЕДЕКНБ ХМРЕПБЮКНБ ЮОПНЙЯХЛЮЖХХ
-	! Xlim(1,Ninterval)-МХФМХИ ОПЕДЕК 
-	! Xlim(2,Ninterval)-БЕПУМХИ ОПЕДЕК
-	! A0(3,Ninterval)-ЛЮЯЯХБ ЙНЩТТХЖХЕМРНБ ЮОПНЙЯХЛХПСЧЫЕИ ТСМЙЖХХ 
-	! (A03*x^2+A02*x+A01)*x^(l+1)*exp(-(ALFA3*x^2+ALFA2*x+ALFA3)*x)*(1+sum(ak*x^k))
-	! ALFA(3,Ninterval)-ЩЙЯОНРЕМЖХЮКЭМШИ ЛМНФХРЕКЭ ЮОПНЙЯХЛХПСЧЫЕИ ТСМЙЖХХ ГЮБХЯХР НР ХМРЕПБЮКЮ
-     	! ALFA(3,Ninterval)-яннрберярбсер яреоемх r^2
-	! ALFA(2,Ninterval)-яннрберярбсер яреоемх r
-      ! ALFA(1,Ninterval)-яннрберярбсер яреоемх r^0
-	! ARCoffPolinom(2+nn-l,Ninterval)-ОНКХЛХЮКЭМШЕ ЛМНФХРЕКХ (ЛМНФХРЕКЕИ nn-l-1) ДНАЮБКЕМ 1 ДКЪ РНЦН, ВРНАШ ЛЮЯЯХБ 
-	! ХЛЕК УНРЪ АШ НДХМ ЩКЕЛЕМР-пегскэрюр опнхгбедемхъ онкхмнлнб   (A03*x^2+A02*x+A01)*(1+sum(ak*x^k))
-	! EPSfun-ОНЦПЕЬМНЯРЭ Б ЮООПНЙЯХЛЮЖХХ (ЛЮЙЯХЛЮКЭМНЕ НРЙКНМЕМХЕ НР ЮООПНЙЯХЛХПСЕЛНИ ТСМЙЖХХ)
-	! EPSr-ГМЮВЕМХЕ R-ПЮДХСЯЮ ЦДЕ НАМЮПСФЕМН ЛЮЙЯХЛЮКЭМНЕ НРЙКНМЕМХЕ
-      ! RfunAro(N)-ЛЮЯЯХБ ГМЮВЕМХИ ЮОПНЙЯХЛХПНБЮММНИ ТСМЙЖХХ (ДКЪ ЯНОНЯРЮБКЕМХЪ Я ХЯУНДМНИ)
+! SUB-PROGRAM FOR APPROXIMATION OF THE RADIAL PART OF THE WAVE FUNCTION (DISCRETE WAVE FUNCTION)
+! DESCRIPTION OF SUBPROGRAM PARAMETERS
+! nn-principal quantum number
+! l-orbital quantum number
+! NpointFUN-number of points
+! R (N) -array of radius values
+! Rfun (N) -array of function values
+! Nraz-parameter increasing by Nraz the initial number of intervals 2 (nn-l)
+! Ninterval-number of intervals of approximation
+! NpolAR-degree of a polynomial with ARCoffPolinom coefficients
+! Xlim (2, Ninterval) -array of limits of approximation intervals
+! Xlim (1, Ninterval) -lower limit
+! Xlim (2, Ninterval) -upper limit
+! A0 (3, Ninterval) -array of coefficients of the approximating function
+! (A03 * x ^ 2 + A02 * x + A01) * x ^ (l + 1) * exp (- (ALFA3 * x ^ 2 + ALFA2 * x + ALFA3) * x) * (1 + sum (ak * x ^ k))
+! ALFA (3, Ninterval) - the exponential factor of the approximating function depends on the interval
+! ALFA (3, Ninterval) - CORRESPONDING TO DEGREE r ^ 2
+! ALFA (2, Ninterval) - CORRESPONDING TO DEGREE r
+! ALFA (1, Ninterval) - CORRESPONDING TO DEGREE r ^ 0
+! ARCoffPolinom (2 + nn-l, Ninterval) -polomial multipliers (nn-l-1 multipliers) added 1 to make the array
+! had at least one POLYNOMA PRODUCT RESULT (A03 * x ^ 2 + A02 * x + A01) * (1 + sum (ak * x ^ k))
+! EPSfun-error in approximation (maximum deviation from the approximated function)
+! EPSr-value of R-radius where maximum deviation is found
+! RfunAro (N) -array of values ??of the approximated function (for comparison with the original)
 	subroutine EFSH_APPROXIMATION_RADIAL_FUNCTION(nn,l,NpointFUN,R,Rfun,Nraz,Ninterval,NpolAR,Xlim,ALFA,ARCoffPolinom,EPSfun,EPSr,RfunAro) 
       implicit none
        
@@ -3070,26 +3069,26 @@ module mefsh
 
 
 
-  ! ондопнцпюллю юоопнйяхлюжхх пюдхюкэмни вюярх бнкмнбни тсмйжхх (дхяйпермни бнкмнбни тсмйжхх)
-  ! нохяюмхе оюпюлерпнб ондопнцпюллш
-  ! l-НПАХРЮКЭМНЕ ЙБЮМРНБНЕ ВХЯКН
-  ! NpointFUN-ВХЯКН РНВЕЙ
-  ! R(N)-ЛЮЯЯХБ ГМЮВЕМХИ ПЮДХСЯЮ
-  ! Rfun(N)-ЛЮЯЯХБ ГМЮВЕМХИ ТСМЙЖХХ
-  ! Nraz-ОЮПЮЛЕРЕП СБЕКХВХБЮЧЫХИ Б Nraz ПЮГ ХЯУНДМНЕ ВХЯКН ХМРЕПБЮКНБ 2(nn-l) 
-  ! Ninterval-ВХЯКН ХМРЕПБЮКНБ ЮОПНЙЯХЛЮЖХХ
-  ! NpolAR-ЯРЕОЕМЭ ОНКХМНЛЮ  Я ЙНЩТТХЖХЕМРЮЛХ ARCoffPolinom
-  ! Xlim(2,Ninterval)-ЛЮЯЯХБ ОПЕДЕКНБ ХМРЕПБЮКНБ ЮОПНЙЯХЛЮЖХХ
-  ! Xlim(1,Ninterval)-МХФМХИ ОПЕДЕК 
-  ! Xlim(2,Ninterval)-БЕПУМХИ ОПЕДЕК
-  ! A0(3,Ninterval)-ЛЮЯЯХБ ЙНЩТТХЖХЕМРНБ ЮОПНЙЯХЛХПСЧЫЕИ ТСМЙЖХХ 
-  ! (A03*x^2+A02*x+A01)*x^(l+1)*exp(-(ALFA3*x^2+ALFA2*x+ALFA3)*x)*(1+sum(ak*x^k))
-  ! ALFA(3,Ninterval)-ЩЙЯОНРЕМЖХЮКЭМШИ ЛМНФХРЕКЭ ЮОПНЙЯХЛХПСЧЫЕИ ТСМЙЖХХ ГЮБХЯХР НР ХМРЕПБЮКЮ
-  !  ALFA(3,Ninterval)-яннрберярбсер яреоемх r^2
-  !  ALFA(2,Ninterval)-яннрберярбсер яреоемх r
-  !  ALFA(1,Ninterval)-яннрберярбсер яреоемх r^0
-  ! ARCoffPolinom(NpolAR+1,Ninterval)-ОНКХЛХЮКЭМШЕ ЛМНФХРЕКХ пегскэрюр опнхгбедемхъ онкхмнлнб   (A03*x^2+A02*x+A01)*(1+sum(ak*x^k))
-  ! RfunAro(N)-ЛЮЯЯХБ ГМЮВЕМХИ ЮОПНЙЯХЛХПНБЮММНИ ТСМЙЖХХ (ДКЪ ЯНОНЯРЮБКЕМХЪ Я ХЯУНДМНИ)
+  ! SUB-PROGRAM FOR APPROXIMATION OF THE RADIAL PART OF THE WAVE FUNCTION (DISCRETE WAVE FUNCTION)
+  ! DESCRIPTION OF SUBPROGRAM PARAMETERS
+  ! l-orbital quantum number
+  ! NpointFUN-number of points
+  ! R (N) -array of radius values
+  ! Rfun (N) -array of function values
+  ! Nraz-parameter increasing by Nraz the initial number of intervals 2 (nn-l)
+  ! Ninterval-number of intervals of approximation
+  ! NpolAR-degree of a polynomial with ARCoffPolinom coefficients
+  ! Xlim (2, Ninterval) -array of limits of approximation intervals
+  ! Xlim (1, Ninterval) -lower limit
+  ! Xlim (2, Ninterval) -upper limit
+  ! A0 (3, Ninterval) -array of coefficients of the approximating function
+  ! (A03 * x ^ 2 + A02 * x + A01) * x ^ (l + 1) * exp (- (ALFA3 * x ^ 2 + ALFA2 * x + ALFA3) * x) * (1 + sum (ak * x ^ k))
+  ! ALFA (3, Ninterval) - the exponential factor of the approximating function depends on the interval
+  ! ALFA (3, Ninterval) - CORRESPONDING TO DEGREE r ^ 2
+  ! ALFA (2, Ninterval) - CORRESPONDING TO DEGREE r
+  ! ALFA (1, Ninterval) - CORRESPONDING TO DEGREE r ^ 0
+  ! ARCoffPolinom (NpolAR + 1, Ninterval) -polomial factors RESULT OF PRODUCING POLYNOMS (A03 * x ^ 2 + A02 * x + A01) * (1 + sum (ak * x ^ k))
+  ! RfunAro (N) -array of values ??of the approximated function (for comparison with the original)
 	subroutine EFSH_APPROXIMATION_RADIAL_FUNCTION_ALFA(l,NpointFUN,R,Rfun,Nraz,Ninterval,NpolAR,Xlim,ALFA,ARCoffPolinom,RfunAro) 
      use dfimsl
 	 implicit none
@@ -4064,16 +4063,16 @@ module mefsh
 
 
 
-    ! ондопнцпюллю нясыеярбкъер юмюкхг тсмйжхх (ндмни оепелеммни) 
-	! сярюмюбкхбюер мскх тсмйжхх х рнвйх щйярпелслю
-    ! нохяюмхе оюпюлерпнб ондопнцпюллш
-    ! Npoint-вхякн рнвей тсмйжхх
-	! R(Npoint)-люяяхб гмювемхи юпцслемрю
-	! RFUN(Npoint)-люяяхб гмювемхи тсмйжхх
-	! NpointZERO-вхякн мскеи тсмйжхх
-	! Xzero(NpointZERO)-люяяхб гмювемхи юпцслемрю тсмйжхх б йнрнпшу нмю напюыюеряъ б мскэ
-	! NpointEXTREMA-вхякн щйярпхлюкэмшу рнвей 
-	! Xextrema(NpointEXTREMA)-люяяхб гмювемхи щйярпхлюкэмшу рнвей(юпцслемр тсмйжхх)
+     ! SUB-PROGRAM PERFORM ANALYSIS OF FUNCTION (ONE VARIABLE)
+     ! SETS FUNCTION ZERO AND EXTREME POINTS
+     ! DESCRIPTION OF SUBPROGRAM PARAMETERS
+     ! Npoint-NUMBER OF DOTS FUNCTIONS
+     ! R (Npoint) - ARGUMENT VALUE ARRAY
+     ! RFUN (Npoint) -ARRAY OF FUNCTION VALUES
+     ! NpointZERO-NUMBER OF ZERO FUNCTIONS
+     ! Xzero (NpointZERO) - ARGUMENT OF VALUES OF A FUNCTION ARGUMENT IN WHICH IT VALUES TO ZERO
+     ! NpointEXTREMA-NUMBER OF EXTREME POINTS
+     ! Xextrema (NpointEXTREMA) - ARRAY OF VALUES OF EXTREME POINTS (ARGUMENT OF THE FUNCTION)
 	subroutine EFSH_ANALYSIS_FUNCTION_ZERO_AND_EXTREMA(Npoint,R,RFUN,NpointZERO,Xzero,NpointEXTREMA,Xextrema) 
       implicit none
 	  integer::Npoint,NpointZERO,NpointEXTREMA
@@ -4253,12 +4252,12 @@ module mefsh
       end subroutine EFSH_ANALYSIS_FUNCTION_ZERO_AND_EXTREMA
 
 
-	! ондопнцпюллю пюяверю йнпмеи онкхмнлю 
-	! нохяюмхе оюпюлерпнб ондопнцпюллш
-      ! Npol-люйяхлюкэмюъ яреоемэ онкхмнлю
-	! RcoffPol(Npol+1)-люяяхб йнщттхжхемрнб
-	! Ns-вхякн деиярбхрекэмшу йнпмеи онкхмнлю
-	! X(Npol)-люяяхб йнпмеи онкхмнлю
+    ! POLYNOMA ROOT CALCULATION SUBPROGRAM
+    ! DESCRIPTION OF SUBPROGRAM PARAMETERS
+    ! Npol-MAXIMUM POLYNOMA DEGREE
+    ! RcoffPol (Npol + 1) -ARRAY OF COEFFICIENTS
+    ! Ns-NUMBER OF REAL ROOTS OF POLYNOMA
+    ! X (Npol) -ROOT POLYNOMA
 	subroutine EFSH_CALCULATION_ROOTS_POLYNOM(Npol,RcoffPol,Ns,X)
       use dfimsl
 	implicit none
@@ -4309,13 +4308,13 @@ module mefsh
     
 
    
-      ! ондопнцпюллю пеьемхъ яхярелш кхмеимшу спюбмемхи A*Xs=Y
-	! лернд цюсяяю я опхлемемхел яуелш вюярхвмнцн бшанпю
-	! нохяюмхе оюпюлерпнб ондопнцпюллш
-	! N-вхякн мехгбеярмшу
-	! A-люрпхжю яхярелш кхмеимшу спюбмемхи
-	! Y-люяяхб гмювемхе тсмйжхх
-	! Xs-люяяхб гмювемхи йнпмеи яхярелш
+    ! SUBPROGRAM FOR SOLVING A SYSTEM OF LINEAR EQUATIONS A * Xs = Y
+    ! THE GAUSS METHOD USING A PARTIAL SELECTION SCHEME
+    ! DESCRIPTION OF SUBPROGRAM PARAMETERS
+    ! N-NUMBER OF UNKNOWN
+    ! A-MATRIX OF A SYSTEM OF LINEAR EQUATIONS
+    ! Y-ARRAY FUNCTION VALUE
+    ! Xs-ARRAY OF ROOT SYSTEM VALUES
       subroutine EFSH_SYSTEM_LINEAR_EQUATIONS(N,A,Y,Xs) 
 	implicit none
       integer::N,ierr 

@@ -1,10 +1,9 @@
       
 ! THE MODULE OF CALCULATION 3J-SYMBOLS VER 3.0 11.2005
-! бяе опюбю гюыхыемш. йнлоюмхъ LabComputerSistemTecnologyKasprzhitsky
-! VER 3.0 NEW  11,2005 цнд
-! ver 4.0      03,2007 ЦНДЮ 
+! VER 3.0 NEW  11,2017 цнд
+! ver 4.0      03,2019 ЦНДЮ 
 
-! лндскэ пюяверю 3J-яхлбнкнб бепяхъ 1.0    
+ 
 
 
 	
@@ -14,7 +13,7 @@ module mc3js
 	
  contains
 
- ! бяонлнцюрекэмюъ ондопнцпюллю тнплхпсер люяяхб дкъ пюяверю 3J-яхлбнкнб
+! AUXILIARY PROGRAM FORMS AN ARRAY FOR CALCULATING 3J CHARACTERS
  subroutine C3JS_VAR(NFF,FF,F) 
   implicit none
   integer::NFF
@@ -34,15 +33,15 @@ module mc3js
  end subroutine C3JS_VAR
 	 
       
- ! ондопнцпюллю пюяверю люрпхвмнцн щкелемрю ятепхвеяйни цюплнмхйх 
- ! L1-нпахрюкэмши лнлемр оепбни тсмйжхх
- ! M1-опнейжхъ нпахрюкэмнцн оепбни тсмйжхх
- ! L2-нпахрюкэмши лнлемр брнпни тсмйжхх
- ! M2-опнейжхъ нпахрюкэмнцн лнлемрю брнпни тсмйжхх 
- ! K-нпахрюкэмши лнлемр ятепхвеяйни цюплнмйх
- ! опнейжхъ ятепхвеяйни цюплнмхйх нопдекъеряъ пюбемярбнл q=M1-M2 
- ! нярюкэмше опнейжхх опхбндър й гюмскемхч люрпхвмнцн щкелемрю 
- ! бяонлнцюрекэмше оюпюлерпш дкъ пюяверю FF,FF(50)
+ ! SUB-PROGRAM FOR CALCULATING THE MATRIX ELEMENT OF THE SPHERICAL HARMONY
+  ! L1-ORBITAL MOMENT OF FIRST FUNCTION
+  ! M1-PROJECTION OF ORBITAL FIRST FUNCTION
+  ! L2-ORBITAL MOMENT OF THE SECOND FUNCTION
+  ! M2-PROJECTION OF THE ORBITAL MOMENT OF THE SECOND FUNCTION
+  ! K-ORBITAL MOMENT OF SPHERICAL HARMONY
+  ! THE PROJECTION OF SPHERICAL HARMONICS IS DEFINED BY THE EQUALITY q = M1-M2
+  ! OTHER PROJECTIONS LEAD TO ZEROING OF THE MATRIX ELEMENT
+  ! AUXILIARY PARAMETERS FOR CALCULATION OF FF, FF (50)
  real(8) function C3JS_Ckq(L1,M1,L2,M2,K,FF,F)
   implicit none
   integer::L1,M1,L2,M2,K
@@ -53,23 +52,23 @@ module mc3js
   real(8)::A1,A2   
  
   II= L1+(L1+K+L2)/2.D0+1.D-1
-  ! пюявер 3J-яхлбнкю, йнщттхжхемрю бхцмепю 
+  ! CALCULATION OF THE 3J SYMBOL, WIGNER RATIO
   A1=C3JS_W3JA(L1,K,L2,-M1,M1-M2,M2,FF,F)
-  ! пюявер опхбедеммнцн люрпхвмнцн щкелемрю ноепюрнпю ятепхвеяйни цюплнмхйх 
+ ! CALCULATION OF THE REDUCED MATRIX ELEMENT OF THE SPHERICAL HARMONIC OPERATOR
   A2=C3JS_CKK(L1,L2,K,FF,F)
-  ! пегекэрюр
+  ! RESULT
   C3JS_Ckq=(-1.D0)**(L1-M1+II)*A1*A2
   return
  end function C3JS_Ckq
 
- ! ондопнцпюллю пюяверю люрпхвмнцн щкелемрю ятепхвеяйни цюплнмхйх 
- ! L1-нпахрюкэмши лнлемр оепбни тсмйжхх
- ! M1-опнейжхъ нпахрюкэмнцн оепбни тсмйжхх
- ! L2-нпахрюкэмши лнлемр брнпни тсмйжхх
- ! M2-опнейжхъ нпахрюкэмнцн лнлемрю брнпни тсмйжхх 
- ! K-нпахрюкэмши лнлемр ятепхвеяйни цюплнмйх
- ! опнейжхъ ятепхвеяйни цюплнмхйх нопдекъеряъ пюбемярбнл q=M1-M2 
- ! нярюкэмше опнейжхх опхбндър й гюмскемхч люрпхвмнцн щкелемрю 
+  ! SUB-PROGRAM FOR CALCULATING THE MATRIX ELEMENT OF THE SPHERICAL HARMONY
+  ! L1-ORBITAL MOMENT OF FIRST FUNCTION
+  ! M1-PROJECTION OF ORBITAL FIRST FUNCTION
+  ! L2-ORBITAL MOMENT OF THE SECOND FUNCTION
+  ! M2-PROJECTION OF THE ORBITAL MOMENT OF THE SECOND FUNCTION
+  ! K-ORBITAL MOMENT OF SPHERICAL HARMONY
+  ! THE PROJECTION OF SPHERICAL HARMONICS IS DEFINED BY THE EQUALITY q = M1-M2
+  ! OTHER PROJECTIONS LEAD TO ZEROING OF THE MATRIX ELEMENT
  real(8) function C3JS_CkqGG(L1,M1,L2,M2,K)
   implicit none
   integer::L1,M1,L2,M2,K
@@ -88,9 +87,9 @@ module mc3js
  end function C3JS_CkqGG
       
   
-! ондопнцпюллю пюяверю 3J-яхлбнкю 
-! I1,I2,I3,I4,I5,I6-оюпюлерпш яхлбнкю
-! бяонлнцюрекэмше оюпюлерпш дкъ пюяверю FF,FF(50)
+! 3J-SYMBOL CALCULATION SUB-PROGRAM
+! I1, I2, I3, I4, I5, I6-SYMBOL PARAMETERS
+! AUXILIARY PARAMETERS FOR CALCULATION OF FF, FF (50)
 real(8) function C3JS_W3JA(I1,I2,I3,I4,I5,I6,FF,F)
  implicit none
  integer::I1,I2,I3,I4,I5,I6
@@ -158,10 +157,10 @@ real(8) function C3JS_W3JA(I1,I2,I3,I4,I5,I6,FF,F)
 end function C3JS_W3JA
 
 
-! ондопнцпюллю пюяверю 3J-яхлбнкю 
-! лернднл сопныемхъ
-! I1,I2,I3,I4,I5,I6-оюпюлерпш яхлбнкю
-! бяонлнцюрекэмше оюпюлерпш дкъ пюяверю FF,FF(50)
+! 3J-SYMBOL CALCULATION SUB-PROGRAM
+! BY THE METHOD OF SIMPLIFICATION
+! I1, I2, I3, I4, I5, I6-SYMBOL PARAMETERS
+! AUXILIARY PARAMETERS FOR CALCULATION OF FF, FF (50)
 real(8) function C3JS_W3JAGG(I1,I2,I3,I4,I5,I6)
  implicit none
  integer::I1,I2,I3,I4,I5,I6
@@ -309,11 +308,11 @@ real(8) function C3JS_F21(IZX,FF,F)
  return
 end function C3JS_F21
 
-! пюявер опхбедеммнцн люрпхвмнцн щкелемрю ятепхвеяйни цюплнмхйх
-! нохяюмхе оюпюлерпнб ондопнцпюллш
-! L1-нпахрюкэмши лнлемр оепбни цюплнмхйх
-! L2-нпахрюкэмши лнлемр брнпни цюплнмхйх
-! K-нпахрюкэмши лнлемр ятепхвеяйни цюплнмхйх
+! CALCULATION OF THE REDUCED MATRIX ELEMENT OF THE SPHERICAL HARMONY
+! DESCRIPTION OF SUBPROGRAM PARAMETERS
+! L1-ORBITAL MOMENT OF FIRST HARMONIC
+! L2-ORBITAL MOMENT OF THE SECOND HARMONIC
+! K-ORBITAL MOMENT OF SPHERICAL HARMONIC
 real(8) function C3JS_CKKGG(L1,L2,K)
  implicit none
  integer::L1,L2,K
@@ -397,11 +396,11 @@ end function C3JS_CKKGG
       
 
 
-! пюявер опхбедеммнцн люрпхвмнцн щкелемрю ятепхвеяйни цюплнмхйх
-! нохяюмхе оюпюлерпнб ондопнцпюллш
-! L1-нпахрюкэмши лнлемр оепбни цюплнмхйх
-! L2-нпахрюкэмши лнлемр брнпни цюплнмхйх
-! K-нпахрюкэмши лнлемр ятепхвеяйни цюплнмхйх
+! CALCULATION OF THE REDUCED MATRIX ELEMENT OF THE SPHERICAL HARMONY
+! DESCRIPTION OF SUBPROGRAM PARAMETERS
+! L1-ORBITAL MOMENT OF FIRST HARMONIC
+! L2-ORBITAL MOMENT OF THE SECOND HARMONIC
+! K-ORBITAL MOMENT OF SPHERICAL HARMONIC
 real(8) function C3JS_CKK(L1,L2,K,FF,F)
  implicit none
  integer::L1,L2,K
@@ -488,15 +487,15 @@ real(8) function C3JS_F31(IZX,FF,F)
 end function C3JS_F31
 
 
- ! ондопнцпюллю пюяверю люрпхвмнцн щкелемрю ятепхвеяйни цюплнмхйх
- ! нясыеярбкъеряъ меоняпедярбеммне хмрецпхпнбюмхе ятепхвеяйху цюплнмхй 
- ! L1-нпахрюкэмши лнлемр оепбни тсмйжхх
- ! M1-опнейжхъ нпахрюкэмнцн оепбни тсмйжхх
- ! L2-нпахрюкэмши лнлемр брнпни тсмйжхх
- ! M2-опнейжхъ нпахрюкэмнцн лнлемрю брнпни тсмйжхх 
- ! K-нпахрюкэмши лнлемр ятепхвеяйни цюплнмйх
- ! опнейжхъ ятепхвеяйни цюплнмхйх нопдекъеряъ пюбемярбнл q=M1-M2 
- ! нярюкэмше опнейжхх опхбндър й гюмскемхч люрпхвмнцн щкелемрю 
+  ! SUB-PROGRAM FOR CALCULATING THE MATRIX ELEMENT OF THE SPHERICAL HARMONY
+  ! DIRECT INTEGRATION OF SPHERICAL HARMONICS IS CARRIED OUT
+  ! L1-ORBITAL MOMENT OF FIRST FUNCTION
+  ! M1-PROJECTION OF ORBITAL FIRST FUNCTION
+  ! L2-ORBITAL MOMENT OF THE SECOND FUNCTION
+  ! M2-PROJECTION OF THE ORBITAL MOMENT OF THE SECOND FUNCTION
+  ! K-ORBITAL MOMENT OF SPHERICAL HARMONY
+  ! THE PROJECTION OF SPHERICAL HARMONICS IS DEFINED BY THE EQUALITY q = M1-M2
+  ! OTHER PROJECTIONS LEAD TO ZEROING OF THE MATRIX ELEMENT
  real(8) function C3JS_CkqISH(L1,M1,L2,M2,K)
   implicit none
   integer::L1,M1,L2,M2,K
@@ -526,13 +525,13 @@ end function C3JS_F31
 
 
 
- ! ондопнцпюллю пюяверю люрпхвмнцн щкелемрю ятепхвеяйни цюплнмхйх 
- ! нясыеярбкъеряъ меоняпедярбеммшл хмрецпхпнбюмхел
- ! L1-нпахрюкэмши лнлемр
- ! M1-опнейжхъ нпахрюкэмнцн лнлемрю
- ! L2-нпахрюкэмши лнлемр
- ! M2-опнейжхъ нпахрюкэмнцн лнлемрю
- ! K-мнлеп цюплнмхйх
+ ! SUB-PROGRAM FOR CALCULATING THE MATRIX ELEMENT OF THE SPHERICAL HARMONY
+  ! DONE BY DIRECT INTEGRATION
+  ! L1-ORBITAL MOMENT
+  ! M1-PROJECTION OF ORBITAL MOMENT
+  ! L2-ORBITAL MOMENT
+  ! M2-PROJECTION OF THE ORBITAL MOMENT
+  ! HARMONIC K-NUMBER
  real(8) function CalculationCkq(L1,M1,L2,M2,K)
   implicit none
   integer::L1,M1,L2,M2,K
@@ -765,9 +764,9 @@ end function C3JS_F31
  end function
 
 
- ! ондопнцпюллю пюяверю хмрецпюкю 
- ! нясыеярбкъеряъ пюявер хмрецпюкю я ондхмрецпюкэмни тсмйжхи
- ! COS(IXX*X)*COS(IIY1*X)*COS(IIY2*X)*COS(IIY3*X)
+  ! INTEGRAL CALCULATION SUBPROGRAM
+  ! INTEGRAL CALCULATION WITH SUB-INTEGRAL FUNCTION IS PERFORMED
+  ! COS (IXX * X) * COS (IIY1 * X) * COS (IIY2 * X) * COS (IIY3 * X)
  real(8) function RintCOS(IXX,IIY1,IIY2,IIY3)
   implicit none
   integer::IXX,IIY1,IIY2,IIY3
@@ -826,13 +825,13 @@ end function C3JS_F31
 
 
 
- ! ондопнцпюллю онксвемхъ йнщттхжхемрнб опенапюгнбюмхъ онкхмнл 
- !  sin(x)^i=SUM(Rcoffp*cos(px))+SUM(Rcoffq*sin(qx))  
- ! нохяюмхе оюпюлерпнб ондопнцпюллш
- ! N-люйяхлюкэмюъ яреоемэ онкхмнлю
- ! Rcoff(2,N+1)-люяяхб йнщттхжхемрнб опедярюбкемхе sin(x)^i=SUM(Rcoffp*cos(px))+SUM(Rcoffq*sin(qx))  
- ! Rcoff(1,N+1)-йнщттхжхемрш опх SIN(PX) 
- ! Rcoff(2,N+1)-йнщттхжхемрш опх COS(PX) 
+  ! SUBPROGRAM FOR OBTAINING THE POLYNOMY TRANSFORMATION COEFFICIENTS
+  ! sin (x) ^ i = SUM (Rcoffp * cos (px)) + SUM (Rcoffq * sin (qx))
+  ! DESCRIPTION OF SUBPROGRAM PARAMETERS
+  ! N-MAXIMUM POLYNOMA DEGREE
+  ! Rcoff (2, N + 1) COEFFICIENT ARRAY REPRESENTATION sin (x) ^ i = SUM (Rcoffp * cos (px)) + SUM (Rcoffq * sin (qx))
+  ! Rcoff (1, N + 1) COEFFICIENTS AT SIN (PX)
+  ! Rcoff (2, N + 1) COEFFICIENTS AT COS (PX)
  subroutine COEFFICIENT_TRANSFORMATION_POLINOM_SINN(N,Rcoff)
 	implicit none
 
@@ -905,13 +904,13 @@ end function C3JS_F31
 
 
 
- ! ондопнцпюллю онксвемхъ гмювемхъ рерю тсмйжхх (пеййспемрмшл яонянанл)
- ! нохяюмхе оюпюлерпнб ондопнцпюллш
- ! L-нпахрюкэмши лнлемр тсмйжхх
- ! M-опнейжхъ нпахрюкэмнцн лнлемрю (опнцпюллю пюяялюрпхбюер яксвюи (M>=0)  
- ! N-вхякн рнвей б йнрнпшу мюундхл гмювемхъ (б хмрепбюке (0,PI))
- ! X(N)-люяяхб гмювеми юпцслемрю
- ! Y(N)-люяяхб гмювемхи тсмйжхх
+  ! SUB-PROGRAM FOR OBTAINING THE VALUE OF THETA FUNCTION (RECURRENT METHOD)
+  ! DESCRIPTION OF SUBPROGRAM PARAMETERS
+  ! L-ORBITAL MOMENT FUNCTION
+  ! M-PROJECTION OF THE ORBITAL MOMENTUM (THE PROGRAM CONSIDERS THE CASE (M> = 0)
+  ! N-NUMBER OF POINTS WHICH WE FIND VALUES (IN THE INTERVAL (0, PI))
+  ! X (N) -MASSIF OF ARGUMENT VALUES
+  ! Y (N) -ARRAY OF FUNCTION VALUES
  subroutine VALUE_TETA_FUNCTION(L,M,N,X,Y)
      implicit none
      integer::L,M,N
@@ -972,13 +971,13 @@ end function C3JS_F31
    return  
  end subroutine VALUE_TETA_FUNCTION
 
-  ! ондопнцпюллю юопнйяхлюжхх рерю тсмйжхх тсмйжхеи бхдю sin(x)^M*SUM(Qi*cos(i*x))
-  ! нохяюмхе оюпюлерпнб ондопнцпюллш
-  ! M-опнейжхъ нпахрюкэмнцн лнлемрю
-  ! N-вхякн рнвей
-  ! X(N)-люяяхб гмювемхи юпцслемрю рере-тсмйжхх
-  ! Y(N)-люяяхб гмювемхи рерю-тсмйжхх 
-  ! Qcoff(N)-Mюяяхб гмювеми йнщттхжхемрнб юопнйяхлюжхх
+   ! SUBPROGRAM FOR APPROXIMATING THETA FUNCTIONS BY FUNCTIONS OF THE FORM sin (x) ^ M * SUM (Qi * cos (i * x))
+   ! DESCRIPTION OF SUBPROGRAM PARAMETERS
+   ! M-PROJECTION OF ORBITAL MOMENT
+   ! N-NUMBER OF DOTS
+   ! X (N) -MASSIF OF VALUES OF THE TETE FUNCTION ARGUMENT
+   ! Y (N) -ARRAY OF VALUES OF THEETA FUNCTION
+   ! Qcoff (N) -MASSIVE OF VALUES OF THE APPROXIMATION COEFFICIENTS
   subroutine COEFFICIENT_TETA_FUNCTION_APRO(M,N,X,Y,Qcoff) 
    implicit none
    integer::N,M,ierr 
@@ -1025,13 +1024,13 @@ end function C3JS_F31
    return
   end subroutine COEFFICIENT_TETA_FUNCTION_APRO
 
-    ! ондопнцпюллю пеьемхъ яхярелш кхмеимшу спюбмемхи A*Xs=Y
-	! лернд цюсяяю я опхлемемхел яуелш вюярхвмнцн бшанпю
-	! нохяюмхе оюпюлерпнб ондопнцпюллш
-	! N-вхякн мехгбеярмшу
-	! A-люрпхжю яхярелш кхмеимшу спюбмемхи
-	! Y-люяяхб гмювемхе тсмйжхх
-	! Xs-люяяхб гмювемхи йнпмеи яхярелш
+! SUBPROGRAM FOR SOLVING A SYSTEM OF LINEAR EQUATIONS A * Xs = Y
+! THE GAUSS METHOD USING A PARTIAL SELECTION SCHEME
+! DESCRIPTION OF SUBPROGRAM PARAMETERS
+! N-NUMBER OF UNKNOWN
+! A-MATRIX OF A SYSTEM OF LINEAR EQUATIONS
+! Y-ARRAY FUNCTION VALUE
+! Xs-ARRAY OF ROOT SYSTEM VALUES
  subroutine SYSTEM_LINEAR_EQUATIONS(N,A,Y,Xs) 
 	implicit none
       integer::N,ierr 
@@ -1191,12 +1190,12 @@ end subroutine SYSTEM_LINEAR_EQUATIONS
       end function FACTORIAL
 	   
 
-! пюявер опхбедеммнцн люрпхвмнцн щкелемрю ятепхвеяйни цюплнмхйх
-! нясыеярбкъел опнбепйс мю нркхвхе нр мскъ
-! нохяюмхе оюпюлерпнб ондопнцпюллш
-! L1-нпахрюкэмши лнлемр оепбни цюплнмхйх
-! L2-нпахрюкэмши лнлемр брнпни цюплнмхйх
-! K-нпахрюкэмши лнлемр ятепхвеяйни цюплнмхйх
+! CALCULATION OF THE REDUCED MATRIX ELEMENT OF THE SPHERICAL HARMONY
+! WE CARRY OUT A CHECK FOR DIFFERENCE FROM ZERO
+! DESCRIPTION OF SUBPROGRAM PARAMETERS
+! L1-ORBITAL MOMENT OF FIRST HARMONIC
+! L2-ORBITAL MOMENT OF THE SECOND HARMONIC
+! K-ORBITAL MOMENT OF SPHERICAL HARMONIC
 integer function C3JS_CKKISH(L1,L2,K)
  implicit none
  integer::L1,L2,K
@@ -1240,9 +1239,9 @@ integer function C3JS_CKKISH(L1,L2,K)
  return
 end function C3JS_CKKISH
 
-! ондопнцпюллю пюяверю 3J-яхлбнкю 
-! опнбепъел нркхвем нр мскъ хкх мер
-! I1,I2,I3,I4,I5,I6-оюпюлерпш яхлбнкю
+! 3J-SYMBOL CALCULATION SUB-PROGRAM
+! CHECKING DIFFERENT FROM ZERO OR NOT
+! I1, I2, I3, I4, I5, I6-SYMBOL PARAMETERS
  integer function C3JS_W3JAISH(I1,I2,I3,I4,I5,I6)
  implicit none
  integer::I1,I2,I3,I4,I5,I6

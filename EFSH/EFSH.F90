@@ -6,11 +6,11 @@ program ExpansionFunSH
  integer(2)  Hz1,Mz1,Sz1,HSz1,Hz2,Mz2,Sz2,HSz2
    call GETTIM(Hz1,Mz1,Sz1,HSz1)
    TB=60.*Hz1+Mz1+Sz1/60. 
-   !  ондопнцпюллю ббндю дюммшу
+   ! DATA ENTRY SUB-PROGRAM
    call readfile
-   !  ондопнцпюллю пюяверю люрпхвмнцн щкелемрю
+   ! MATRIX ELEMENT CALCULATION SUBPROGRAM
    call CalculExpansionFunctionSphericalHarmonics
-   !  ондопнцпюллю бшдювх пегскэрюрнб
+   ! RESULTS SUB-PROGRAM
    call writefile(6)
    call GETTIM(Hz2,Mz2,Sz2,HSz2)
    TE=60.*Hz2+Mz2+Sz2/60.
@@ -23,7 +23,7 @@ program ExpansionFunSH
 end program ExpansionFunSH
 
        
-! ондопнцпюллю ббндю дюммшу
+! DATA ENTRY SUB-PROGRAM
 subroutine readfile
   implicit real(8) (A-H,O,P,R-Z)
   
@@ -66,19 +66,19 @@ subroutine readfile
   WRITE(*,*) OUTF0
   WRITE(*,*) OUTENERGY
   WRITE(*,*) OutEnergyTab 
-  ! аКНЙ ББНДЮ ВХЯКНБШУ ДЮММШУ
-  ! Ral-ПЮЯЯРНЪМХЕ НР ЮРНЛМНИ ЯХЯРЕЛШ ЙННПДХМЮР ДН ЯХЯРЕЛШ ЙННПДХМЮР ЖЕМРПЮ ПЮГКНФЕМХЪ
-  ! Ral>0-ЯЛЕЫЕМХЕ ОПНХЯУНДХР БДНКЭ НЯХ OZ (б онкнфхрекэмнл мюопюбкемхх)
-  ! Ral<0-ЯЛЕЫЕМХЕ ОПНХЯУНДХР ОПНРХБ НЯХ OZ (б нрпхжюрекэмнл мюопюбкемхх)
-  ! Lmax-НПАХРЮКЭМШИ ЛНЛЕМР ОНЯКЕДМЕЦН ЯКЮЦЮЕЛНЦН ОН ЙНРНПНЛС ОПНБНДХРЯЪ ПЮГКНФЕМХЕ
-  ! NtipSetkyatom-РХО ЯЕРЙХ ДКЪ ПЮГКНЦЮЕЛНИ ТСМЙЖХХ
-  ! NtipSetky-РХО ЯЕРЙХ
-  ! NtipSetky=1-юрнлмюъ яерйю
-  ! NtipSetky=2-лнкейскъпмюъ яерйю (яерйю дкъ яксвюъ меянбоюдемхъ мювюкю яхярелш йннпдхмюр я юрнлнл)
-  ! NKie-сякнбхе гюохях йнщттхжхемрнб пюгкнфемхъ
-  ! NKie=0-йнщттхжхемрш пюгкнфемхъ ме гюохяшбючряъ б тюик
-  ! NKie=1-йнщттхжхемрш пюгкнфемхъ гюохяшбючряъ б тюик
-  ! IZFUN-мнлеп оепбни гюохях б тюик йнщттхжхемрю пюгкнфемхъ   
+  ! Numerical data input block
+  ! Ral-distance from the atomic coordinate system to the decomposition center coordinate system
+  ! Ral> 0 - displacement occurs along the OZ axis (IN POSITIVE DIRECTION)
+  ! Ral <0 - offset occurs against the OZ axis (IN NEGATIVE DIRECTION)
+  ! Lmax-orbital moment of the last term in which the expansion is performed
+  ! NtipSetkyatom-mesh type for expandable function
+  ! NtipSetky-type mesh
+  ! NtipSetky = 1-ATOMIC GRID
+  ! NtipSetky = 2-MOLECULAR GRID (GRID FOR THE CASE OF NON-COINCIDENCE OF THE BEGINNING OF THE SYSTEM OF COORDINATES WITH THE ATOM)
+  ! NKie-CONDITION FOR RECORDING DECOMPOSITION COEFFICIENTS
+  ! NKie = 0-DECOMPOSITION RATES ARE NOT WRITTEN TO FILE
+  ! NKie = 1-DECOMPOSITION COEFFICIENTS WRITE TO FILE
+  ! IZFUN-NUMBER OF THE FIRST RECORD INTO FILE DECOMPOSITION COEFFICIENT
   READ(5,*) Z,IS,NtipSetkyatom,NtipSetky,NKie
 
   IF(NtipSetkyatom.EQ.1) THEN
@@ -105,21 +105,21 @@ subroutine readfile
     
   
       
-  ! явхршбюел мюгбюмхъ тюикнб б йнрнпше асдср гюохяюмш пюгкнфемхъ
+ ! WE READ THE NAMES OF THE FILES IN WHICH THE EXPANSIONS WILL BE WRITTEN
   DO K=1,IS 
      READ(4,'(A90)') OUTF(K)
      WRITE(*,*) OUTF(K)
   ENDDO
 	
-  ! ябъгшбюел тюикш я йюмюкюлх
+ ! LINKING FILES TO CHANNELS
   DO K=1,IS 
      OPEN(100+K,FILE=OUTF(K))
   ENDDO
-  ! ябъгшбюел тюик я йюмюкнл (пюгкнцюелше тсмйжхх)
+  ! LINKING THE FILE TO THE CHANNEL (DECOMPOSABLE FUNCTIONS)
   OPEN(UNIT=1,FILE=FILE,STATUS='OLD',ACCESS='SEQUENTIAL',FORM='UNFORMATTED')
   
   IF(NKie.EQ.1) THEN 
-    ! ябъгшбюел тюик я йюмюкнл (йнщттхжхемрш пюгкнфемъ)
+    ! LINKING THE FILE TO THE CHANNEL (DECOMPOSITION RATES)
      OPEN(UNIT=2,FILE=FILEfun,STATUS='OLD',ACCESS='SEQUENTIAL',FORM='UNFORMATTED')
   ENDIF
              
@@ -127,7 +127,7 @@ subroutine readfile
 end subroutine readfile 
      
 
-! ондопнцпюллю пюяверю йнщттхжхемрнб пюгкнфемхъ	
+! SUBPROGRAM FOR CALCULATING THE EXPANSION COEFFICIENTS
 subroutine  CalculExpansionFunctionSphericalHarmonics
   use mefsh,only:EFSH_FUNCTION_EXPANSION_SPHERICAL_HARMONICS,EFSH_RW
   use mcmri,only:CMRI_VAR,CMRI_ROFUN,CMRI_INT_ORT
@@ -157,7 +157,7 @@ subroutine  CalculExpansionFunctionSphericalHarmonics
   data LB/'s','p','d','f','g','h','i','j','k','l'/
  
 
-  ! бшдекъел оюлърэ онд люяяхбш 
+  ! WE ALWAYS MEMORY FOR ARRAYS
   allocate(NRabParametrs(2),stat=ierr)
   if(ierr/=0) then
      write(*,*)'MEMORY ON THE FILE "NRabParametrs" IS NOT SELECTED'
@@ -321,7 +321,7 @@ subroutine  CalculExpansionFunctionSphericalHarmonics
   
 
       
-	! гюмскъел оепед пюанрни
+	! ZERO BEFORE WORK
     REW=0.D0
 	Rtemp=0.D0
 	DM=0.D0
@@ -346,10 +346,10 @@ subroutine  CalculExpansionFunctionSphericalHarmonics
 	REnergyIntGarmon=0.D0
 	RKinEnergyGarmon=0.D0
 	!RCoulomb=0.D0  
-    ! щрюо 0 яВХРШБЮМХЕ ДЮММШУ ХГ ТЮИКЮ
+    ! STEP 0 Reading data from file
       
 	do  I=1,IS
-	    ! гюмскъел дкъ дюммни тсмйжхх
+	    ! ZERO FOR THIS FUNCTION
 	    Rtemp=0.D0
           REWIND 1
           IZ=IZON(I)-1
@@ -376,11 +376,11 @@ subroutine  CalculExpansionFunctionSphericalHarmonics
 
 
 
-      ! щрюо 1 нопедекемхе гмювемхи пюдхсяю х йнщттхжхемрю оепеяверю
-      ! дкъ юрнлмшу тсмйжхи х йнщттхжхемрнб пюгкнфемхъ 
+      ! STEP 1 DETERMINATION OF THE VALUES OF THE RADIUS AND THE CONVERSION FACTOR
+      ! FOR ATOMIC FUNCTIONS AND DECOMPOSITION COEFFICIENTS
       call CMRI_VAR(NtipSetkyatom,M,H,ALFA,BET,GAMMA,DABS(RalFL),R,RO1,RO2,RO3)
       call CMRI_VAR(NtipSetky,Mnew,Hnew,ALFAnew,BETnew,GAMMAnew,DABS(Ral),Rnew,RO1N,RO2N,RO3N)
-      ! нопедекъел кейсч цпюмхжс хмрепбюкю он рхос яерйх
+      ! DETERMINING THE LIGHT BOUNDARY OF THE INTERVAL BY THE TYPE OF THE NET
 	  IF(NtipSetkyatom.EQ.1) THEN
           RO0=-14.D0
       ENDIF
@@ -394,31 +394,31 @@ subroutine  CalculExpansionFunctionSphericalHarmonics
           RO0new=-15.D0
       ENDIF
       
-	  ! гюмскъел оепед пюявернл
+	  ! ZERO BEFORE CALCULATION
 	  NRabParametrs=0
 
 	
      
-      ! щрюо 2 пюявер йнщттхжхемрнб пюгкнфемхъ он ятепхвеяйхл цюплнмхйюл
-      ! жхйк он нанкнвйюл йнмтхцспюжхх
+    ! STEP 2 CALCULATION OF THE EXPANSION COEFFICIENTS INTO SPHERICAL HARMONICS
+    ! CONFIGURATION SHELL CYCLE
 	DO IJ=1,IS
-	   ! щрюо 0. гюохяшбюел пюдхюкэмсч вюярэ  бнкмнбни тсмйжхх IJ-ни нанкнвйх
+	   ! STEP 0. RECORDING THE RADIAL PART OF THE WAVE FUNCTION OF THE IJ SHELL
 	   call EFSH_RW(2,IJ,Rtemp,DM,M2)
 	   DO IZX=1,M
 	      RFUN(IZX)=Rtemp(IZX+2)/DSQRT(RO1(IZX))
 	   ENDDO
-       ! щрюо 1. ондопнцпюллю пюгкнфемхъ тсмйжхх б пъд он ятепхвеяйл цюплнмхйюл
+      ! STEP 1. SUBPROGRAM OF THE EXPANSION OF A FUNCTION INTO A SERIES IN SPHERICAL HARMONICS
 	   call EFSH_FUNCTION_EXPANSION_SPHERICAL_HARMONICS(Nn(IJ),L(IJ),LML(IJ),M,R,RFUN,RFUNAPROC,Lmin,Lmax,Ral,Mnew,Rnew,RcoffSHE,NRabParametrs)   
-       ! щрюо 3. гюохяшбюел гмювемхъ юоопнйяхлхпнбюммни пюдхюкэмни вюярх бнкмнбни тсмйжхх 
+       ! STEP 3. WRITING THE VALUES OF THE APPROXIMATED RADIAL PART OF THE WAVE FUNCTION
 	   DO IZX=1,M
 	      DMApro(IJ,IZX)=RFUNAPROC(IZX)
        ENDDO
-       ! щрюо 4. гюохяшбюел онксвеммши йнщттхжхемр
+       ! STEP 4. WRITE DOWN THE OBTAINED COEFFICIENT
 	   IndexGarmons=0
 	   DO ILS=Lmin,Lmax  
 	      IndexGarmons=IndexGarmons+1
 		  DO IZXC=1,Mnew
-		     ! гюмскъел опх анкэьху гмювемхъ врнаш кхйбхдхпнбюрэ пюяундхлнярэ
+		     ! ZERO AT LARGE VALUES TO ELIMINATE THE CONSUMPTION
 	         IF(Rnew(IZXC).LT.35.D0) THEN
 		          RCoffSH(IJ,IndexGarmons,IZXC)=RCoffSHE(IndexGarmons,IZXC)
 		        ELSE
@@ -429,7 +429,7 @@ subroutine  CalculExpansionFunctionSphericalHarmonics
      ENDDO
 
 
-      ! сдюкемхе люяяхбнб хг оълърх 
+      ! REMOVING ARRAYS FROM MEMORY 
 	 deallocate(NRabParametrs,stat=ierr)
 	if(ierr/=0) then
 	write(*,*) 'CalculExpansionFunctionSphericalHarmonics'
@@ -454,17 +454,17 @@ subroutine  CalculExpansionFunctionSphericalHarmonics
  4000 FORMAT(2X,'RCulombXF('I3,A1,I3,A1,')= ',F20.10)
  4100 FORMAT(2X,'RCulomb(L=',I3 ',ML=',I2,' ',I3,A1,I3,A1')= ',F20.10)
  4200 FORMAT(2X,I3,2X,F20.10,2X,F20.10,2X,F20.10)  
-      ! гюохяшбюел хяундмсч тсмйжхч
+      ! RECORDING THE INITIAL FUNCTION
       WRITE(7,300) (Nn(I),LB(L(I)+1),Nn(I),LB(L(I)+1),I=1,IS)
 	DO IZX=1,M
       WRITE(7,400)  R(IZX),(DM((NF-1)*M2+IZX+2)/DSQRT(RO1(IZX)),DMApro(NF,IZX),NF=1,IS)   
 	ENDDO 
 	 
-	 ! гюохяшбюел йнщттхжхемрш пюгкнфемхъ
+	 ! RECORDING THE DECOMPOSITION COEFFICIENTS
      	DO IC=1,IS 
          WRITE(100+IC,100) Nn(IC),LB(L(IC)+1),LML(IC)
 	   WRITE(100+IC,200) (ISDA,ISDA=Lmin,Lmax)
-         ! жхйк он йнщттхжхемрюл пюгкнфемхъ
+     ! EXPANSION COEFFICIENTS CYCLE
 	   DO IDFX=1,Mnew
       WRITE(100+IC,500) Rnew(IDFX),(RCoffSH(IC,ILS-Lmin+1,IDFX)*Rnew(IDFX),ILS=Lmin,Lmax)
 	   ENDDO
@@ -475,23 +475,23 @@ subroutine  CalculExpansionFunctionSphericalHarmonics
     
 	
 
-      ! пюявер ндмнщкейрпнмни щмепцхх (дкъ сярюмнбкемхъ яундхлнярх)
+      ! CALCULATION OF SINGLE-ELECTRONIC ENERGY (FOR ESTABLISHING CONVERGENCE)
 	DO IJ=1,IS
-       ! гюмскъел оепед пюявернл
+      ! ZERO BEFORE CALCULATION
        RORTGarmon=0.D0
        REnergyGarmon=0.D0
 	   
-	   ! гюохяшбюел пюдхюкэмсч вюярэ  бнкмнбни тсмйжхх IJ-ни нанкнвйх
+	  ! RECORDING THE RADIAL PART OF THE WAVE FUNCTION OF THE IJ SHELL
 	   call EFSH_RW(2,IJ,Rtemp,DM,M2)
 	   DO IZX=1,M
           RFUN(IZX)=Rtemp(IZX+2)
 	   ENDDO
-       ! пюявхршбюел ндмнщкейрпнммсч щмепцхч пюгкнцюелни тсмйжхх
+      ! CALCULATING THE ONE-ELECTRONIC ENERGY OF THE DECOMPOSABLE FUNCTION
 	   ZZX=0.D0
 	   RCOR=0.D0
 	   ACOR=0.D0
 	   EnergyXFnew=CMME_ONE_ELECTRONIC_INTEGRAL(L(IJ),LML(IJ),L(IJ),LML(IJ),0,Z,ZZX,RCOR,ACOR,-14.D0,H,M,R,RFUN,RFUN,RO1,RO2,RO3,EkinXF,EpotXF) 
-	   ! пюявхршбюел хмрецпюк нпрнцнмюкэмнярх
+	   ! WE CALCULATE THE INTEGRAL OF ORTHOGONALITY
 	   call EFSH_RW(2,IJ,Rtemp,DM,M2)
 	   DO IZX=1,M
           RFUN(IZX)=Rtemp(IZX+2)
@@ -502,13 +502,13 @@ subroutine  CalculExpansionFunctionSphericalHarmonics
 	   WRITE(8,3000) Nn(IJ),LB(L(IJ)+1),LML(IJ),EnergyXFnew,EkinXF,EpotXF,RORTXFnew
        WRITE(18,4200) 0,EnergyXFnew,0.D0,0.D0
 	   WRITE(18,*)
-	   !жхйк он нпахрюкэмшл лнлемрюл пюгкнфемхъ
-       !гюохяшбюел дюммше н йнмтхцспюжхх ъдеп
+       ! THE ORBITAL DECOMPOSITION CYCLE
+       ! WRITE DATA ABOUT THE CONFIGURATION OF NUCLEARS
 	   ZZX(1)=Z
-	   !пюдхюкэмше йннпдхмюрш
+	   ! RADIAL COORDINATES
 	   RCOR(1,1)=DABS(Ral)
 	   RCOR(1,2)=CMRI_ROFUN(ALFAnew,BETnew,GAMMAnew,DABS(Ral),DABS(Ral),0.D0)
-       ! сцкнбше йннпдхмюрш
+       ! CORNER COORDINATES
        ACOR(1,2)=0.D0
 	   IF(Ral.GT.0.D0) THEN
           ACOR(1,1)=0.D0
@@ -518,9 +518,9 @@ subroutine  CalculExpansionFunctionSphericalHarmonics
 	   
 	   Ngarmonik1=0
        DO ILS=Lmin,Lmax
-	      ! ХМДЕЙЯ ЦЮПЛНМХЙ
+	      ! harmonic index
 	      Ngarmonik1=Ngarmonik1+1
-	      ! гюохяшбюелши йнщттхжхемр б бхде F-РХО
+	      ! WRITE FACTOR AS F-type
 	      DO IZXC=1,Mnew
 	         RRRFGH=Rnew(IZXC)*DSQRT(RO1N(IZXC))
 	         RFUN(IZXC)=RCoffSH(IJ,Ngarmonik1,IZXC)*RRRFGH
@@ -528,17 +528,17 @@ subroutine  CalculExpansionFunctionSphericalHarmonics
           Ngarmonik2=0
 	      DO ILS1=Lmin,Lmax 
              Ngarmonik2=Ngarmonik2+1
-	         ! гюохяшбюелши йнщттхжхемр б бхде F-РХО
+	         ! WRITE FACTOR AS F-type
 	         DO IZXC=1,Mnew
 	            RRRFGH=Rnew(IZXC)*DSQRT(RO1N(IZXC))
 	            RFUNN(IZXC)=RCoffSH(IJ,Ngarmonik2,IZXC)*RRRFGH
     	     ENDDO
-	         ! ПЮЯВХРШБЮЕЛ НДМНЩКЕЙРПНММСЧ ЦЮПЛНМХЙС ILS  
+	         ! calculate the two-electron harmonic ILS 
 	         REnergyGarmon(Ngarmonik1,Ngarmonik2)=CMME_ONE_ELECTRONIC_INTEGRAL(ILS,LML(IJ),ILS1,LML(IJ),1,0.D0,ZZX,RCOR,ACOR,RO0new,Hnew,Mnew,Rnew,RFUN,RFUNN,RO1N,RO2N,RO3N,RENERGYKIN,RENERGYINTZ) 
 	         RKinEnergyGarmon(Ngarmonik1,Ngarmonik2)=RENERGYKIN
 	         REnergyIntGarmon(Ngarmonik1,Ngarmonik2)=RENERGYINTZ
           ENDDO 
-	      ! ПЮЯВХРШБЮЕЛ ХМРЕЦПЮК НПРНЦНМЮКЭМНЯРХ ЦЮПЛНМХЙХ
+	      ! calculate the harmonic orthogonality integral
           RORTGarmon(Ngarmonik1)=CMRI_INT_ORT(Mnew,RO0new,Hnew,RFUN,RFUN,RO1N)
     	  !WRITE(8,*) 'RORT',RIOSDF,RORTGarmon(Ngarmonik1)
 	   ENDDO
@@ -555,13 +555,13 @@ subroutine  CalculExpansionFunctionSphericalHarmonics
 	   LIIO=Lmin-1  
 	   DO ILS=1,Ngarmonik1  
           LIIO=LIIO+1
-		  ! пюявхршбюел мнплхпнбнвмши лмнфхрекэ 
+		  ! CALCULATING THE RATING MULTIPLIER 
 		  SUM=0.D0
 	      DO IIIX=1,ILS
              SUM=SUM+RORTGarmon(IIIX)
 	      ENDDO
 	      RALFA=1.D0/SUM
-          ! пюявхршбюел ндмнщкейрпнммсч щмепцхч
+          ! WE CALCULATE SINGLE ELECTRONIC ENERGY
 	      SUMENERGY=0.D0
           SUMENERGYKIN=0.D0
           SUMENERGYPOT=0.D0
@@ -572,7 +572,7 @@ subroutine  CalculExpansionFunctionSphericalHarmonics
                 SUMENERGYPOT=SUMENERGYPOT+REnergyIntGarmon(JJJX,JJJY)
 	         ENDDO
 		  ENDDO
-	      ! гюохяшбюел пегскэрюр пюяверю
+	     ! WE WRITE THE RESULT OF THE CALCULATION
 	      ENERGY=RALFA*SUMENERGY
 		  EKIN=RALFA*SUMENERGYKIN
 		  EPOT=RALFA*SUMENERGYPOT 
@@ -582,7 +582,7 @@ subroutine  CalculExpansionFunctionSphericalHarmonics
 	   ENDDO
       ENDDO
 
-    ! гюохяшбюел йнщттхжхемрш пюгкнфемхъ б тюик я гюохях мнлеп IZFUN
+    ! WE WRITE DECOMPOSITION COEFFICIENTS INTO A FILE FROM A RECORD IZFUN NUMBER
 	IF(NKie.EQ.1) THEN
 	   NfunSD=0
 	   DO IJ=1,IS
@@ -625,7 +625,7 @@ subroutine  CalculExpansionFunctionSphericalHarmonics
      
 
    
-	! сдюкемхе люяяхбнб хг оълърх 
+	! REMOVING ARRAYS FROM MEMORY 
 	deallocate(RORTGarmon,stat=ierr)
 	if(ierr/=0) then
       write(*,*) 'THE FILE "RORTGarmon" IS NOT REMOVED FROM MEMORY'
@@ -751,7 +751,7 @@ subroutine  CalculExpansionFunctionSphericalHarmonics
 
 
 
-      ! ОНДПНЦПЮЛЛЮ БШБНДЮ ПЕГСКЭРЮРНБ (ТЮИК НРВЕРЮ)
+     ! results output subroutine (report file)
 	subroutine writefile(n)
 	
 	implicit real(8)(A-H,O,P,R-Z)
